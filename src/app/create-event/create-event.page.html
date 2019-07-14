@@ -8,18 +8,18 @@
     <ion-list>
         <ion-item>
           <ion-label position="floating" color="secondary">Event Name</ion-label>
-          <ion-input placeholder="Name" [(ngModel)]=name></ion-input> 
+          <ion-input placeholder="Name" [(ngModel)]="name"></ion-input> 
         </ion-item>
     
       <ion-item>
         <ion-label position="floating" color="secondary">Event Description</ion-label>
-        <ion-textarea  clear-on-edit="true" placeholder="Description" [(ngModel)]=desc></ion-textarea>
+        <ion-textarea  clear-on-edit="true" placeholder="Description" [(ngModel)]="desc"></ion-textarea>
       </ion-item>    
       
       <ion-list>
             <ion-item>
                 <ion-label position="floating" color="secondary">Location Of Event</ion-label>
-                <ion-input placeholder="Location" [(ngModel)]=localtion></ion-input>
+                <ion-input placeholder="Location" [(ngModel)]="localtion"></ion-input>
              </ion-item>  
         </ion-list>
         
@@ -65,7 +65,7 @@
    
         
 
-          <ion-button shape="round" color="secondary" (click)="CreateRecord()">Create</ion-button>
+          <ion-button shape="round" color="secondary" (click)="CreateRecord()" >Create</ion-button>
          
           <!--<p><b>Radio Group Event</b><br/>
             {{selectedRadioGroup | json}}</p>

@@ -1,22 +1,17 @@
 import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore';
-import { first } from 'rxjs/operators'
-import { auth } from 'firebase/app'
-
-interface user {
-	emailAddress: string,
-	uid: string
-}
 
 @Injectable({
 	providedIn: 'root'
   })
 
 export class UserService {
-	private user: user
+	
+	constructor(
+		private firestore: AngularFirestore
+	) {}
 
-	constructor(private firestore: AngularFirestore) {}
-
+	
 	create_NewEvent(record) {
 		return this.firestore.collection('Event').add(record);
 	  }

@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-event.page.scss'],
 })
 export class CreateEventPage implements OnInit {
-
-  event: any;
+  
+  event: any; 
   name: string;
   desc: string;
   localtion: string;

@@ -6,17 +6,18 @@ import { firestore } from 'firebase/app';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+import {  } from '@angular/fire/database';
+
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.page.html',
   styleUrls: ['./event-list.page.scss'],
 })
 export class EventListPage implements OnInit {
-
   event: any;
-  name: string =""
-  desc: string =""
-  localtion: string =""
+  name: string;
+  desc: string;
+  localtion: string;
 
   constructor(
 		public http: Http,
@@ -42,21 +43,21 @@ export class EventListPage implements OnInit {
     });
   }
 
-  // CreateRecord() {
-  //   let record = {};
-  //   record['Name'] = this.name;
-  //   record['Description'] = this.desc;
-  //   record['Location'] = this.localtion;
-  //   this.user.create_NewEvent(record).then(resp => {
-  //     this.name = "";
-  //     this.desc = "";
-  //     this.localtion = "";
-  //     console.log(resp);
-  //   })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
+  CreateRecord() {
+    let record = {};
+    record['Name'] = this.name;
+    record['Description'] = this.desc;
+    record['Location'] = this.localtion;
+    this.user.create_NewEvent(record).then(resp => {
+      this.name = "";
+      this.desc = "";
+      this.localtion = "";
+      console.log(resp);
+    })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   RemoveRecord(rowID) {
     this.user.delete_Event(rowID);
