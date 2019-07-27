@@ -14,10 +14,15 @@ import {  } from '@angular/fire/database';
   styleUrls: ['./event-list.page.scss'],
 })
 export class EventListPage implements OnInit {
-  event: any;
+  event: any; 
   name: string;
   desc: string;
   localtion: string;
+  time: string;
+  scope: string;
+  type: string;
+
+
 
   constructor(
 		public http: Http,
@@ -36,6 +41,9 @@ export class EventListPage implements OnInit {
           Name: e.payload.doc.data()['Name'],
           Desc: e.payload.doc.data()['Description'],
           Localtion: e.payload.doc.data()['Location'],
+          Time: e.payload.doc.data()['Time'],
+          Scope: e.payload.doc.data()['Scope'],
+          Type: e.payload.doc.data()['Type'],
         };
       })
       console.log(this.event);
@@ -44,14 +52,20 @@ export class EventListPage implements OnInit {
   }
 
   CreateRecord() {
-    let record = {};
+    let record = {}
     record['Name'] = this.name;
     record['Description'] = this.desc;
     record['Location'] = this.localtion;
+    record['Time'] = this.time;
+    record['Scope'] = this.scope;
+    record['Type'] = this.type;
     this.user.create_NewEvent(record).then(resp => {
       this.name = "";
       this.desc = "";
       this.localtion = "";
+      this.time = "";
+      this.scope = "";
+      this.type = "";
       console.log(resp);
     })
       .catch(error => {

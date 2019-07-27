@@ -5,6 +5,7 @@ import { UserService } from '../user.service';
 import { firestore } from 'firebase/app';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { validateConfig } from '@angular/router/src/config';
 
 @Component({
   selector: 'app-create-event',
@@ -17,6 +18,10 @@ export class CreateEventPage implements OnInit {
   name: string;
   desc: string;
   localtion: string;
+  time: string;
+  scope: string;
+  type: string;
+
 
   constructor(
 		public http: Http,
@@ -36,6 +41,9 @@ export class CreateEventPage implements OnInit {
             Name: e.payload.doc.data()['Name'],
             Desc: e.payload.doc.data()['Description'],
             Localtion: e.payload.doc.data()['Location'],
+            Time: e.payload.doc.data()['Time'],
+            Scope: e.payload.doc.data()['Scope'],
+            Type: e.payload.doc.data()['Type'],
           };
         })
         console.log(this.user);
@@ -48,10 +56,16 @@ export class CreateEventPage implements OnInit {
       record['Name'] = this.name;
       record['Description'] = this.desc;
       record['Location'] = this.localtion;
+      record['Time'] = this.time;
+      record['Scope'] = this.scope;
+      record['Type'] = this.type;
       this.user.create_NewEvent(record).then(resp => {
         this.name = "";
         this.desc = "";
         this.localtion = "";
+        this.time = "";
+        this.scope = "";
+        this.type = "";
         console.log(resp);
       })
         .catch(error => {
@@ -60,7 +74,7 @@ export class CreateEventPage implements OnInit {
     }
 
 
-  defaultSelectedRadio = "radio_2";
+  defaultSelectedRadio = "radio_1";
   //Get value on ionChange on IonRadioGroup
   selectedRadioGroup:any;
   //Get value on ionSelect on IonRadio item
@@ -98,9 +112,9 @@ export class CreateEventPage implements OnInit {
     console.log("radioSelect",event.detail);
     this.selectedRadioItem = event.detail;
   }
-  radioBlur() {
-    console.log("radioBlur");
-  }
+  // radioBlur() {
+  //   console.log("radioBlur");
+  // }
 
 
 }

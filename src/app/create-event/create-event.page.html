@@ -23,26 +23,22 @@
              </ion-item>  
         </ion-list>
         
-               
         
            <ion-item>
           <ion-label position="floating" color="secondary">Event Time</ion-label>
-        <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm" min="2019-01-01" max="2100-12-31" [(ngModel)]=time></ion-datetime>
+        <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm" min="2019-01-01" max="2100-12-31" [(ngModel)]="time"></ion-datetime>
       </ion-item>
 
             
       <ion-list>
           <ion-item>
               <ion-label position="floating" color="secondary">Scope Of Event</ion-label>
-              <ion-select value="notifications" interface="popover">
-                <ion-select-option value="camt">CAMT Event</ion-select-option>
-                <ion-select-option value="cmu">CMU Event</ion-select-option>
-                <ion-select-option value="other">Other</ion-select-option>
+              <ion-select value="notifications" interface="popover" [(ngModel)]="scope"> 
+                <ion-select-option value="CAMT" >CAMT Event</ion-select-option>
+                <ion-select-option value="CMU" >CMU Event</ion-select-option>
               </ion-select>
             </ion-item>
       </ion-list>
-
-
 
             <ion-list>
             <ion-list-header>
@@ -58,6 +54,7 @@
                 checked="{{item.checked}}" 
                 color="{{item.color}}" 
                 disabled="{{item.disabled}}"
+                [(ngModel)]="type"
                 ></ion-radio>
               </ion-item>
             </ion-radio-group>
