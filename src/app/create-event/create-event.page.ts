@@ -52,7 +52,29 @@ export class CreateEventPage implements OnInit {
     }
 
     CreateRecord() {
-      let record = {};
+      if(this.name==""){
+        this.showAlert("Please continue enter with the missing information!");
+        return console.log ("Name empty!");
+      }else if(this.desc==""){
+        this.showAlert("Please continue enter with the missing information!");
+        return console.log ("Des empty!");
+      }else if(this.localtion==""){
+        this.showAlert("Please continue enter with the missing information!");
+        return console.log ("Location empty!");
+
+      }else if(this.time==""){
+        this.showAlert("Please continue enter with the missing information!");
+        return console.log ("Time empty!");
+
+      }else if(this.scope==""){
+        this.showAlert("Please continue enter with the missing information!");
+        return console.log ("Scope empty!");
+
+      }else if(this.type==""){
+        this.showAlert("Please continue enter with the missing information!");
+        return console.log ("Type empty!");
+      }else{
+        let record = {};
       record['Name'] = this.name;
       record['Description'] = this.desc;
       record['Location'] = this.localtion;
@@ -66,39 +88,50 @@ export class CreateEventPage implements OnInit {
         this.time = "";
         this.scope = "";
         this.type = "";
+        this.showAlert("Create Success!");
+        this.router.navigateByUrl('tabs/event-list');
+        return console.log ("Successful!")
         console.log(resp);
       })
         .catch(error => {
           console.log(error);
         });
+      }
+    }
+
+    async showAlert(content: string) {
+      const alert = await this.alertController.create({
+        message: content,
+        buttons: ['OK']
+      })
+  
+      await alert.present()
     }
 
 
-  defaultSelectedRadio = "radio_1";
-  //Get value on ionChange on IonRadioGroup
-  selectedRadioGroup:any;
-  //Get value on ionSelect on IonRadio item
-  selectedRadioItem:any;
- 
-  radio_list = [
-    {
-      id: '1',
-      name: 'radio_list',
-      value: 'radio_1',
-      text: 'Public',
-      disabled: false,
-      checked: false,
-      color: 'secondary'
-    }, {
-      id: '2',
-      name: 'radio_list',
-      value: 'radio_2',
-      text: 'Private',
-      disabled: false,
-      checked: true,
-      color: 'secondary'
-    },
-  ];
+    defaultSelectedRadio = "Public";
+    //Get value on ionChange on IonRadioGroup
+    selectedRadioGroup:any;
+    //Get value on ionSelect on IonRadio item
+    selectedRadioItem:any;
+   
+    radio_list = [
+      {
+        id: '1',
+        name: 'radio_list',
+        value: 'Public',
+        text: 'Public',
+        disabled: false,
+        checked: false,
+      }, {
+        id: '2',
+        name: 'radio_list',
+        value: 'Private',
+        text: 'Private',
+        disabled: false,
+        checked: true,
+      },
+    ];
  
   radioGroupChange(event) {
     console.log("radioGroupChange",event.detail);
@@ -112,9 +145,9 @@ export class CreateEventPage implements OnInit {
     console.log("radioSelect",event.detail);
     this.selectedRadioItem = event.detail;
   }
-  // radioBlur() {
-  //   console.log("radioBlur");
-  // }
+  radioBlur() {
+    console.log("radioBlur");
+  }
 
 
 }

@@ -21,6 +21,7 @@ export class EventListPage implements OnInit {
   time: string;
   scope: string;
   type: string;
+  
 
 
 
@@ -67,14 +68,25 @@ export class EventListPage implements OnInit {
       this.scope = "";
       this.type = "";
       console.log(resp);
-    })
+    }) 
       .catch(error => {
         console.log(error);
       });
   }
 
   RemoveRecord(rowID) {
-    this.user.delete_Event(rowID);
+    this.presentAlertConfirm('Are you sure you want to delete this event?').then(confirm => {
+      if (confirm) {
+        this.user.delete_Event(rowID);
+        this.showAlert("Delete Success!");
+
+        console.log('Deleted');
+
+      } else {
+        this.router.navigateByUrl('tabs/event-list');
+        console.log('Canceled');
+      }
+    })
   }
  
   EditRecord(record) {
@@ -82,15 +94,121 @@ export class EventListPage implements OnInit {
     record.EditName = record.Name;
     record.EditDescription = record.Desc;
     record.EditLocation = record.Localtion;
+    record.EditTime = record.Time;
+    record.EditScope = record.Scope;
+    record.EditType = record.Type;
+    
   }
  
   UpdateRecord(recordRow) {
+
+    if(recordRow.EditName==""){
+      this.showAlert("Please continue enter with the missing information!");
+      return console.log ("Name empty!");
+
+    }else if(recordRow.EditDescription==""){
+      this.showAlert("Please continue enter with the missing information!");
+      return console.log ("Description empty!");
+
+    }else if(recordRow.EditLocation==""){
+      this.showAlert("Please continue enter with the missing information!");
+      return console.log ("Location empty!");
+  
+    }else if(recordRow.EditTime==""){
+      this.showAlert("Please continue enter with the missing information!");
+      return console.log ("Time empty!");
+  
+    }else if(recordRow.EditScopee==""){
+      this.showAlert("Please continue enter with the missing information!");
+      return console.log ("Scope empty!");
+  
+    }else if(recordRow.EditType==""){
+      this.showAlert("Please continue enter with the missing information!");
+      return console.log ("Type empty!");
+    }else{
     let record = {};
     record['Name'] = recordRow.EditName;
     record['Description'] = recordRow.EditDescription;
     record['Location'] = recordRow.EditLocation;
+    record['Time'] = recordRow.EditTime;
+    record['Scope'] = recordRow.EditScope;
+    record['Type'] = recordRow.EditType;
     this.user.update_Event(recordRow.id, record);
     recordRow.isEdit = false;
+    this.showAlert("Update Success!");
+    }
   }
+
+  defaultSelectedRadio = "Public";
+  //Get value on ionChange on IonRadioGroup
+  selectedRadioGroup:any;
+  //Get value on ionSelect on IonRadio item
+  selectedRadioItem:any;
+ 
+  radio_list = [
+    {
+      id: '1',
+      name: 'radio_list',
+      value: 'Public',
+      text: 'Public',
+      disabled: false,
+      checked: false,
+    }, {
+      id: '2',
+      name: 'radio_list',
+      value: 'Private',
+      text: 'Private',
+      disabled: false,
+      checked: true,
+    },
+  ];
+
+radioGroupChange(event) {
+  console.log("radioGroupChange",event.detail);
+  this.selectedRadioGroup = event.detail;
+}
+
+radioFocus() {
+  console.log("radioFocus");
+}
+radioSelect(event) {
+  console.log("radioSelect",event.detail);
+  this.selectedRadioItem = event.detail;
+}
+radioBlur() {
+  console.log("radioBlur");
+}
+
+async presentAlertConfirm(content: string) {
+  let resolveFunction: (confirm: boolean) => void;
+  const promise = new Promise<boolean>(resolve => {
+    resolveFunction = resolve;
+  });
+  const alert = await this.alertController.create({
+    header: 'Confirmation!',
+    message: content,
+    buttons: [
+      {
+        text: 'Cancel',
+        handler: () => resolveFunction(false) 
+      }, {
+        text: 'Confirm',
+        handler: () => resolveFunction(true)
+      }
+    ]
+  });
+
+  await alert.present();
+  return promise;
+}
+
+async showAlert(content: string) {
+  const alert = await this.alertController.create({
+    message: content,
+    buttons: ['OK']
+  })
+
+  await alert.present()
+}
 
 }

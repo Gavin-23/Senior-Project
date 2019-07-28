@@ -11,11 +11,12 @@
           <span *ngIf="!item.isEdit; else elseBlock">
          <ion-card-header> 
             <ion-card-title color="secondary">{{item.Name}}</ion-card-title>
-            <ion-card-content>Location: {{item.Localtion}} </ion-card-content>
-            <ion-card-content>Description: {{item.Desc}}</ion-card-content>
-            <ion-card-content>Time: {{item.Time}}</ion-card-content>
-            <ion-card-content>Scope: {{item.Scope}}</ion-card-content>
-            <ion-card-content>Type: {{item.Type}}</ion-card-content>
+            <ion-card-subtitle>Location:{{item.Localtion}}</ion-card-subtitle>
+            <ion-card-subtitle>Time: {{item.Time}}</ion-card-subtitle>
+            <ion-card-subtitle>Scope: {{item.Scope}}</ion-card-subtitle>
+            <ion-card-subtitle>Type: {{item.Type}}</ion-card-subtitle>
+            <ion-card-subtitle>Description:</ion-card-subtitle>
+            <ion-card-content>{{item.Desc}}</ion-card-content>
           </ion-card-header>
           <ion-card-content>
               <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
@@ -25,10 +26,7 @@
                 <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>     
               </ion-button>
           </ion-card-content>
-        </span>  
-        </ion-card>
-
-
+        </span>      
 
         <ng-template #elseBlock>
           <ion-card-header>
@@ -38,33 +36,73 @@
                   <ion-col>
                     Edit
                   </ion-col>
-                  <ion-col>
-                    <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
-                      Cancel
-                    </ion-button>
-                  </ion-col>
-                  <ion-col>
-                    <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-                      Update
-                    </ion-button>
-                  </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-card-title>
           </ion-card-header>
+              <ion-list>
+                <ion-item>
+                    <ion-label><strong>Name</strong></ion-label>
+                    <br>
+                    <ion-input type="text" [(ngModel)]="item.EditName"></ion-input>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label><strong>Description</strong></ion-label>
+                    <ion-textarea type="text" [(ngModel)]="item.EditDescription"></ion-textarea>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label><strong>Location</strong></ion-label>
+                    <ion-input type="text" [(ngModel)]="item.EditLocation"></ion-input>
+                  </ion-item>
+      
+                  <ion-item>
+                    <ion-label><strong>Time</strong></ion-label>
+                    <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm" min="2019-01-01" max="2100-12-31" [(ngModel)]="item.EditTime"></ion-datetime>
+                  </ion-item>
+      
+                  <ion-item>
+                  <ion-label><strong>Scope</strong></ion-label>
+                  <ion-select value="notifications" interface="popover" [(ngModel)]="item.EditScope"> 
+                    <ion-select-option value="CAMT" >CAMT Event</ion-select-option>
+                    <ion-select-option value="CMU" >CMU Event</ion-select-option>
+                  </ion-select>
+                  </ion-item>
+      
+                  <ion-item>
+                  <ion-label><strong>Type</strong></ion-label>
+                    <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)" [(ngModel)]="item.EditType">
+                      <ion-item *ngFor="let item of radio_list" (ionFocus)="radioFocus()" (ionSelect)="radioSelect($event)" (ionBlur)="radioBlur()">
+                        <ion-label>{{item.text}}</ion-label>
+                        <ion-radio 
+                        slot="start" 
+                        name="{{item.name}}" 
+                        value="{{item.value}}" 
+                        checked="{{item.checked}}" 
+                        disabled="{{item.disabled}}"
+                         ></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                  </ion-item>
+            </ion-list>
+            
+          
           <ion-card-content>
-            <ion-item>
-              <ion-label><strong>Name</strong></ion-label>
-              <ion-input type="text" [(ngModel)]="item.EditName"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label><strong>Age</strong></ion-label>
-              <ion-input type="text" [(ngModel)]="item.EditDescription"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label><strong>Address</strong></ion-label>
-              <ion-input type="text" [(ngModel)]="item.EditLocation"></ion-input>
-            </ion-item>
+            
+           
+
+            <ion-col>
+              <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                Back
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                Update
+              </ion-button>
+            </ion-col>
           </ion-card-content>
         </ng-template>
+      </ion-card>
 </ion-content>

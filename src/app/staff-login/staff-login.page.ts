@@ -27,30 +27,27 @@ export class StaffLoginPage implements OnInit {
   ngOnInit() {
   }
 
-  // abcdefg + @gmal.com
+  // abcdefg + @cmu.ac.th
   async login(){
-    const {emailAddress, password, } = this;
+    const {emailAddress, password,} = this;
 
     try{
-      // kind of a hack
       const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th",password)
-      this.showAlert("Success!","welcome")
       this.router.navigate(['/tabs'])
+      return console.log ("Successful!")
 			
-      
-      
     }catch(err) {
       console.dir(err)
       if(err.code === "auth/invalid-email") {
-        this.showAlert("Error!", "Email Address can not be empty!")
-        return console.log ("Email Address can not be empty!")
+        this.showAlert("Error!", "Email account cannot be empty.")
+        return console.log ("Email account cannot be empty.")
       }
       if(err.code === "auth/wrong-password") {
-        this.showAlert("Error!", "Email Address or password incorrect!")
-        return console.log ("Password can not be empty!")
+        this.showAlert("Error!", "Your account or password is not correct, please enter it again.")
+        return console.log ("Wrong password")
       }
       if(err.code === "auth/user-not-found"){
-        this.showAlert("Error!", "Email Address or password incorrect!")
+        this.showAlert("Error!", "Your account or password is not correct, please enter it again.")
         return console.log ("user not found")
       }
     }
