@@ -30,25 +30,30 @@ export class StaffLoginPage implements OnInit {
   // abcdefg + @cmu.ac.th
   async login(){
     const {emailAddress, password,} = this;
-
     try{
       const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th",password)
       this.router.navigate(['/tabs'])
       return console.log ("Successful!")
+      
 			
     }catch(err) {
       console.dir(err)
       if(err.code === "auth/invalid-email") {
         this.showAlert("Error!", "Email account cannot be empty.")
-        return console.log ("Email account cannot be empty.")
+        console.log ("Email account cannot be empty!")
+        console.log ("show emial empty alert")
       }
       if(err.code === "auth/wrong-password") {
         this.showAlert("Error!", "Your account or password is not correct, please enter it again.")
-        return console.log ("Wrong password")
+        console.log ("Wrong password!")
+        console.log ("show auth/wrong-password alert")
+
       }
       if(err.code === "auth/user-not-found"){
         this.showAlert("Error!", "Your account or password is not correct, please enter it again.")
-        return console.log ("user not found")
+        console.log ("user not found!")
+        console.log ("show auth/user-not-found alert")
+
       }
     }
 
@@ -57,9 +62,8 @@ export class StaffLoginPage implements OnInit {
     const alert = await this.alertController.create({
       header: title,
       message: content,
-      buttons: ['OK']
+      buttons: ['OK'],
     })
-
     await alert.present()
   }
 
@@ -67,8 +71,10 @@ export class StaffLoginPage implements OnInit {
     this.showPass = !this.showPass;
     if(this.showPass){
       this.type = 'text';
+      console.log ("show text of password!")
     } else {
       this.type = 'password';
+      console.log ("hide text of password!")
     }
  }
 

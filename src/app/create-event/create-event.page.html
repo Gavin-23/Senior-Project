@@ -38,8 +38,8 @@
           <ion-label position="floating" color="secondary"><strong>Type Of Event</strong></ion-label>
       </ion-item>
       <ion-item>
-          <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)" [(ngModel)]="type">
-          <ion-item *ngFor="let item of radio_list" (ionFocus)="radioFocus()" (ionSelect)="radioSelect($event)" (ionBlur)="radioBlur()">
+          <ion-radio-group name="radio-group"  [(ngModel)]="type">
+          <ion-item *ngFor="let item of radio_list" >
             <ion-text>{{item.text}}</ion-text>
             <ion-radio 
               slot="end" 

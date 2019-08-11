@@ -53,26 +53,36 @@ export class CreateEventPage implements OnInit {
 
     CreateRecord() {
       if(this.name==""){
-        this.showAlert("Please continue enter with the missing information!");
-        return console.log ("Name empty!");
+        this.showAlert("Name empty!","Please continue enter with the missing information!");
+        console.log ("Name empty!");
+        console.log ("show name empty alert")
+
       }else if(this.desc==""){
-        this.showAlert("Please continue enter with the missing information!");
-        return console.log ("Des empty!");
+        this.showAlert("Description empty!","Please continue enter with the missing information!");
+        console.log ("Description empty!");
+        console.log ("show description empty alert")
+
       }else if(this.localtion==""){
-        this.showAlert("Please continue enter with the missing information!");
-        return console.log ("Location empty!");
+        this.showAlert("Location empty!","Please continue enter with the missing information!");
+        console.log ("Location empty!");
+        console.log ("show location empty alert")
+
 
       }else if(this.time==""){
-        this.showAlert("Please continue enter with the missing information!");
-        return console.log ("Time empty!");
+        this.showAlert("Time empty!","Please continue enter with the missing information!");
+        console.log ("Time empty!");
+        console.log ("show time empty alert")
 
       }else if(this.scope==""){
-        this.showAlert("Please continue enter with the missing information!");
-        return console.log ("Scope empty!");
+        this.showAlert("Scope empty!","Please continue enter with the missing information!");
+        console.log ("Scope empty!");
+        console.log ("show scope empty alert")
 
       }else if(this.type==""){
-        this.showAlert("Please continue enter with the missing information!");
-        return console.log ("Type empty!");
+        this.showAlert("Type empty!","Please continue enter with the missing information!");
+        console.log ("Type empty!");
+        console.log ("show type empty alert")
+
       }else{
         let record = {};
       record['Name'] = this.name;
@@ -88,10 +98,12 @@ export class CreateEventPage implements OnInit {
         this.time = "";
         this.scope = "";
         this.type = "";
-        this.showAlert("Create Success!");
+        this.showAlert("Successfully","Create Success!");
         this.router.navigateByUrl('tabs/event-list');
-        return console.log ("Successful!")
-        console.log(resp);
+        console.log ("Create Successfully!")
+        console.log ("show create successfully alert")
+
+        //console.log(resp);
       })
         .catch(error => {
           console.log(error);
@@ -99,21 +111,21 @@ export class CreateEventPage implements OnInit {
       }
     }
 
-    async showAlert(content: string) {
+    async showAlert(title: string,content: string) {
       const alert = await this.alertController.create({
+        header: title, 
         message: content,
         buttons: ['OK']
       })
-  
       await alert.present()
     }
 
 
     defaultSelectedRadio = "Public";
     //Get value on ionChange on IonRadioGroup
-    selectedRadioGroup:any;
+    //selectedRadioGroup:any;
     //Get value on ionSelect on IonRadio item
-    selectedRadioItem:any;
+    //selectedRadioItem:any;
    
     radio_list = [
       {
@@ -133,21 +145,21 @@ export class CreateEventPage implements OnInit {
       },
     ];
  
-  radioGroupChange(event) {
-    console.log("radioGroupChange",event.detail);
-    this.selectedRadioGroup = event.detail;
-  }
+  // radioGroupChange(event) {
+  //   console.log("radioGroupChange",event.detail);
+  //   this.selectedRadioGroup = event.detail;
+  // }
  
-  radioFocus() {
-    console.log("radioFocus");
-  }
-  radioSelect(event) {
-    console.log("radioSelect",event.detail);
-    this.selectedRadioItem = event.detail;
-  }
-  radioBlur() {
-    console.log("radioBlur");
-  }
+  // radioFocus() {
+  //   console.log("radioFocus");
+  // }
+  // radioSelect(event) {
+  //   console.log("radioSelect",event.detail);
+  //   this.selectedRadioItem = event.detail;
+  // }
+  // radioBlur() {
+  //   console.log("radioBlur");
+  // }
 
 
 }
