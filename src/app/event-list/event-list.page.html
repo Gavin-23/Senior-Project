@@ -72,8 +72,8 @@
       
                   <ion-item>
                   <ion-label><strong>Type</strong></ion-label>
-                    <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)" [(ngModel)]="item.EditType">
-                      <ion-item *ngFor="let item of radio_list" (ionFocus)="radioFocus()" (ionSelect)="radioSelect($event)" (ionBlur)="radioBlur()">
+                    <ion-radio-group name="radio-group"  [(ngModel)]="item.EditType">
+                      <ion-item *ngFor="let item of radio_list" >
                         <ion-label>{{item.text}}</ion-label>
                         <ion-radio 
                         slot="start" 

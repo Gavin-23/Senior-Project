@@ -22,9 +22,6 @@ export class EventListPage implements OnInit {
   scope: string;
   type: string;
   
-
-
-
   constructor(
 		public http: Http,
 		public afstore: AngularFirestore,
@@ -48,43 +45,49 @@ export class EventListPage implements OnInit {
         };
       })
       console.log(this.event);
- 
+      console.log("read event successfully!"); 
     });
   }
 
-  CreateRecord() {
-    let record = {}
-    record['Name'] = this.name;
-    record['Description'] = this.desc;
-    record['Location'] = this.localtion;
-    record['Time'] = this.time;
-    record['Scope'] = this.scope;
-    record['Type'] = this.type;
-    this.user.create_NewEvent(record).then(resp => {
-      this.name = "";
-      this.desc = "";
-      this.localtion = "";
-      this.time = "";
-      this.scope = "";
-      this.type = "";
-      console.log(resp);
-    }) 
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // CreateRecord() {
+  //   let record = {}
+  //   record['Name'] = this.name;
+  //   record['Description'] = this.desc;
+  //   record['Location'] = this.localtion;
+  //   record['Time'] = this.time;
+  //   record['Scope'] = this.scope;
+  //   record['Type'] = this.type;
+  //   this.user.create_NewEvent(record).then(resp => {
+  //     this.name = "";
+  //     this.desc = "";
+  //     this.localtion = "";
+  //     this.time = "";
+  //     this.scope = "";
+  //     this.type = "";
+  //     console.log(resp);
+  //   }) 
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
 
+  
   RemoveRecord(rowID) {
+    console.log('show confirmation alert');
+
     this.presentAlertConfirm('Are you sure you want to delete this event?').then(confirm => {
+
       if (confirm) {
         this.user.delete_Event(rowID);
-        this.showAlert("Delete Success!");
-
+        this.showAlert("Successfully!","Delete Success!");
+        console.log('show delete success alert');
         console.log('Deleted');
 
       } else {
         this.router.navigateByUrl('tabs/event-list');
-        console.log('Canceled');
+        console.log('Canceled!');
+        console.log('show canceled alert');
+
       }
     })
   }
@@ -103,28 +106,35 @@ export class EventListPage implements OnInit {
   UpdateRecord(recordRow) {
 
     if(recordRow.EditName==""){
-      this.showAlert("Please continue enter with the missing information!");
-      return console.log ("Name empty!");
+      this.showAlert("Name empty!","Please continue enter with the missing information!");
+      console.log ("Name empty!");
+      console.log ("show name empty alert")
 
     }else if(recordRow.EditDescription==""){
-      this.showAlert("Please continue enter with the missing information!");
-      return console.log ("Description empty!");
+      this.showAlert("Description empty!","Please continue enter with the missing information!");
+      console.log ("Description empty!");
+      console.log ("show description empty alert")
 
     }else if(recordRow.EditLocation==""){
-      this.showAlert("Please continue enter with the missing information!");
-      return console.log ("Location empty!");
+      this.showAlert("Location empty!","Please continue enter with the missing information!");
+      console.log ("Location empty!");
+      console.log ("show location empty alert")
   
     }else if(recordRow.EditTime==""){
-      this.showAlert("Please continue enter with the missing information!");
-      return console.log ("Time empty!");
+      this.showAlert("Time empty!","Please continue enter with the missing information!");
+      console.log ("Time empty!");
+      console.log ("show time empty alert")
   
     }else if(recordRow.EditScopee==""){
-      this.showAlert("Please continue enter with the missing information!");
-      return console.log ("Scope empty!");
+      this.showAlert("Scope empty!","Please continue enter with the missing information!");
+      console.log ("Scope empty!");
+      console.log ("show scope empty alert")
   
     }else if(recordRow.EditType==""){
-      this.showAlert("Please continue enter with the missing information!");
-      return console.log ("Type empty!");
+      this.showAlert("Type empty!","Please continue enter with the missing information!");
+      console.log ("Type empty!");
+      console.log ("show type empty alert")
+      
     }else{
     let record = {};
     record['Name'] = recordRow.EditName;
@@ -135,15 +145,17 @@ export class EventListPage implements OnInit {
     record['Type'] = recordRow.EditType;
     this.user.update_Event(recordRow.id, record);
     recordRow.isEdit = false;
-    this.showAlert("Update Success!");
+    this.showAlert("Successfully!","Update Successfully!");
+    console.log ("Update Successfully!")
+    console.log ("show create successfully alert")
     }
   }
 
-  defaultSelectedRadio = "Public";
-  //Get value on ionChange on IonRadioGroup
-  selectedRadioGroup:any;
-  //Get value on ionSelect on IonRadio item
-  selectedRadioItem:any;
+  // defaultSelectedRadio = "Public";
+  // //Get value on ionChange on IonRadioGroup
+  // selectedRadioGroup:any;
+  // //Get value on ionSelect on IonRadio item
+  // selectedRadioItem:any;
  
   radio_list = [
     {
@@ -163,21 +175,21 @@ export class EventListPage implements OnInit {
     },
   ];
 
-radioGroupChange(event) {
-  console.log("radioGroupChange",event.detail);
-  this.selectedRadioGroup = event.detail;
-}
+// radioGroupChange(event) {
+//   console.log("radioGroupChange",event.detail);
+//   this.selectedRadioGroup = event.detail;
+// }
 
-radioFocus() {
-  console.log("radioFocus");
-}
-radioSelect(event) {
-  console.log("radioSelect",event.detail);
-  this.selectedRadioItem = event.detail;
-}
-radioBlur() {
-  console.log("radioBlur");
-}
+// radioFocus() {
+//   console.log("radioFocus");
+// }
+// radioSelect(event) {
+//   console.log("radioSelect",event.detail);
+//   this.selectedRadioItem = event.detail;
+// }
+// radioBlur() {
+//   console.log("radioBlur");
+// }
 
 async presentAlertConfirm(content: string) {
   let resolveFunction: (confirm: boolean) => void;
@@ -202,12 +214,12 @@ async presentAlertConfirm(content: string) {
   return promise;
 }
 
-async showAlert(content: string) {
+async showAlert(title: string,content: string) {
   const alert = await this.alertController.create({
+    header: title, 
     message: content,
     buttons: ['OK']
   })
-
   await alert.present()
 }
 
