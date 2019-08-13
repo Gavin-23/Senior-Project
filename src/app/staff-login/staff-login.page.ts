@@ -22,37 +22,37 @@ export class StaffLoginPage implements OnInit {
     public alertController: AlertController,
     public router: Router,
     public user: UserService,
-    ) { }
+  ) { }
 
   ngOnInit() {
   }
 
   // abcdefg + @cmu.ac.th
-  async login(){
-    const {emailAddress, password,} = this;
-    try{
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th",password)
+  async login() {
+    const { emailAddress, password, } = this;
+    try {
+      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th", password)
       this.router.navigate(['/tabs'])
-      return console.log ("Successful!")
-      
-			
-    }catch(err) {
+      return console.log("Successful!")
+
+
+    } catch (err) {
       console.dir(err)
-      if(err.code === "auth/invalid-email") {
+      if (err.code === "auth/invalid-email") {
         this.showAlert("Error!", "Email account cannot be empty.")
-        console.log ("Email account cannot be empty!")
-        console.log ("show emial empty alert")
+        console.log("Email account cannot be empty!")
+        console.log("show emial empty alert")
       }
-      if(err.code === "auth/wrong-password") {
+      if (err.code === "auth/wrong-password") {
         this.showAlert("Error!", "Your account or password is not correct, please enter it again.")
-        console.log ("Wrong password!")
-        console.log ("show auth/wrong-password alert")
+        console.log("Wrong password!")
+        console.log("show auth/wrong-password alert")
 
       }
-      if(err.code === "auth/user-not-found"){
+      if (err.code === "auth/user-not-found") {
         this.showAlert("Error!", "Your account or password is not correct, please enter it again.")
-        console.log ("user not found!")
-        console.log ("show auth/user-not-found alert")
+        console.log("user not found!")
+        console.log("show auth/user-not-found alert")
 
       }
     }
@@ -69,13 +69,13 @@ export class StaffLoginPage implements OnInit {
 
   showPassword() {
     this.showPass = !this.showPass;
-    if(this.showPass){
+    if (this.showPass) {
       this.type = 'text';
-      console.log ("show text of password!")
+      console.log("show text of password!")
     } else {
       this.type = 'password';
-      console.log ("hide text of password!")
+      console.log("hide text of password!")
     }
- }
+  }
 
 }

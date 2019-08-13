@@ -4,58 +4,54 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding >
-    <ion-list>
-        <ion-item>
-          <ion-label position="floating" color="secondary"><strong>Event Name</strong></ion-label>
-          <ion-input placeholder="Name" [(ngModel)]="name"></ion-input> 
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating" color="secondary"><strong>Event Name</strong></ion-label>
+      <ion-input placeholder="Name" [(ngModel)]="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="secondary"><strong>Event Description</strong></ion-label>
+      <ion-textarea clear-on-edit="true" placeholder="Description" [(ngModel)]="desc"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="secondary"><strong>Location Of Event</strong></ion-label>
+      <ion-input placeholder="Location" [(ngModel)]="localtion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="secondary"><strong>Event Time</strong></ion-label>
+      <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm" min="2019-01-01"
+        max="2100-12-31" [(ngModel)]="time"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="secondary"><strong>Scope Of Event</strong></ion-label>
+      <ion-select value="notifications" interface="popover" [(ngModel)]="scope">
+        <ion-select-option value="CAMT">CAMT Event</ion-select-option>
+        <ion-select-option value="CMU">CMU Event</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="secondary"><strong>Type Of Event</strong></ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-radio-group name="radio-group" [(ngModel)]="type">
+        <ion-item *ngFor="let item of radio_list">
+          <ion-text>{{item.text}}</ion-text>
+          <ion-radio slot="end" value="{{item.value}}" checked="{{item.checked}}" disabled="{{item.disabled}}">
+          </ion-radio>
         </ion-item>
-    
-      <ion-item>
-        <ion-label position="floating" color="secondary"><strong>Event Description</strong></ion-label>
-        <ion-textarea  clear-on-edit="true" placeholder="Description" [(ngModel)]="desc"></ion-textarea>
-      </ion-item>  
+      </ion-radio-group>
+    </ion-item>
+    <ion-button shape="round" expand="full" color="secondary" (click)="CreateRecord()">Create</ion-button>
 
-      <ion-item>
-        <ion-label position="floating" color="secondary"><strong>Location Of Event</strong></ion-label>
-        <ion-input placeholder="Location" [(ngModel)]="localtion"></ion-input>
-       </ion-item>  
-       
-       <ion-item>
-          <ion-label position="floating" color="secondary"><strong>Event Time</strong></ion-label>
-          <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm" min="2019-01-01" max="2100-12-31" [(ngModel)]="time"></ion-datetime>
-      </ion-item>
-
-      <ion-item>
-          <ion-label position="floating" color="secondary"><strong>Scope Of Event</strong></ion-label>
-          <ion-select value="notifications" interface="popover" [(ngModel)]="scope"> 
-              <ion-select-option value="CAMT" >CAMT Event</ion-select-option>
-              <ion-select-option value="CMU" >CMU Event</ion-select-option>
-          </ion-select>
-      </ion-item>
-
-      <ion-item>
-          <ion-label position="floating" color="secondary"><strong>Type Of Event</strong></ion-label>
-      </ion-item>
-      <ion-item>
-          <ion-radio-group name="radio-group"  [(ngModel)]="type">
-          <ion-item *ngFor="let item of radio_list" >
-            <ion-text>{{item.text}}</ion-text>
-            <ion-radio 
-              slot="end" 
-              value="{{item.value}}" 
-              checked="{{item.checked}}" 
-              disabled="{{item.disabled}}"
-              
-              ></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </ion-item>
-      <ion-button shape="round" expand="full" color="secondary" (click)="CreateRecord()">Create</ion-button>
-         
-          <!--<p><b>Radio Group Event</b><br/>
+    <!--<p><b>Radio Group Event</b><br/>
             {{selectedRadioGroup | json}}</p>
           <p><b>Radio Item Event</b><br/>
             {{selectedRadioItem | json}}</p>-->
-   </ion-list>
+  </ion-list>
 </ion-content>

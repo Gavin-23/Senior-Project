@@ -1,44 +1,44 @@
 <ion-header>
-    <ion-toolbar color="secondary">
-        <ion-title center text-center>
-            ADMINISTRATOR LOGIN
-        </ion-title>
-        <ion-button slot="start" href="/login" class="button.button-back" color="secondary">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-button> 
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding >
-     <form  center text-center class="title">
-        <h2>CMU IT Account</h2>
-    </form>    
-    <form>
-      <ion-list>
-          <ion-label position="floating">Email Address</ion-label>
-          <div>
-            <ion-item>
-              <ion-input placeholder="Email Address" [(ngModel)]="emailAddress" name="email" ></ion-input> 
-              <ion-note  color="dark" slot="end">@cmu.ac.th</ion-note>
-            </ion-item>
-          </div>
-      </ion-list>
-      <ion-list >
-          <ion-label position="floating">Password</ion-label>
-          <div>
-              <ion-item>
-                 <ion-input placeholder="Password" type="{{type}}" [(ngModel)]="password" name="pw" ></ion-input>
-                 <button *ngIf="!showPass" ion-button clear color="dark" type="button" item-right (click)="showPassword()"> 
-                    <ion-icon slot="end" name="eye" style="font-size:20px;"></ion-icon>
-                 </button>
-                 <button *ngIf="showPass" ion-button clear color="dark" type="button" item-right (click)="showPassword()"> 
-                    <ion-icon slot="end" name="eye-off" style="font-size:20px;"></ion-icon>
-                 </button>
-              </ion-item>         
-          </div>
-      </ion-list>
-      
-      <ion-button  size="default" expand="block" class="button button-login" color="secondary" (click)="login()">Login</ion-button>
-    </form>
-  </ion-content>
-  
+  <ion-toolbar color="secondary">
+    <ion-title center text-center>
+      ADMINISTRATOR LOGIN
+    </ion-title>
+    <ion-button slot="start" href="/login" class="button.button-back" color="secondary">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form center text-center class="title">
+    <h2>CMU IT Account</h2>
+  </form>
+  <form>
+    <ion-list>
+      <ion-label position="floating">Email Address</ion-label>
+      <div>
+        <ion-item>
+          <ion-input placeholder="Email Address" [(ngModel)]="emailAddress" name="email"></ion-input>
+          <ion-note color="dark" slot="end">@cmu.ac.th</ion-note>
+        </ion-item>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-label position="floating">Password</ion-label>
+      <div>
+        <ion-item>
+          <ion-input placeholder="Password" type="{{type}}" [(ngModel)]="password" name="pw"></ion-input>
+          <button *ngIf="!showPass" ion-button clear color="dark" type="button" item-right (click)="showPassword()">
+            <ion-icon slot="end" name="eye" style="font-size:20px;"></ion-icon>
+          </button>
+          <button *ngIf="showPass" ion-button clear color="dark" type="button" item-right (click)="showPassword()">
+            <ion-icon slot="end" name="eye-off" style="font-size:20px;"></ion-icon>
+          </button>
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <ion-button size="default" expand="block" class="button button-login" color="secondary" (click)="login()">Login
+    </ion-button>
+  </form>
+</ion-content>

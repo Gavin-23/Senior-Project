@@ -19,56 +19,56 @@ export class StudentLoginPage implements OnInit {
 
   constructor(
     public afAuth: AngularFireAuth,
-    public alertController: AlertController ) { }
+    public alertController: AlertController) { }
 
   ngOnInit() {
-  }  
+  }
 
   // abcdefg + @gmal.com
-  async login(){
-    const {emailAddress, password, } = this;
+  async login() {
+    const { emailAddress, password, } = this;
 
-    try{
+    try {
       // kind of a hack
-     
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th",password)
+
+      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th", password)
       console.log(res)
-      this.showAlert("Success!","welcome")
-    }catch(err) {
+      this.showAlert("Success!", "welcome")
+    } catch (err) {
       console.dir(err)
-      if(err.code === "auth/invalid-email") {
+      if (err.code === "auth/invalid-email") {
         this.showAlert("Error!", "Email Address can not be empty!")
-        return console.log ("Email Address can not be empty!")
+        return console.log("Email Address can not be empty!")
       }
-      if(err.code === "auth/wrong-password") {
+      if (err.code === "auth/wrong-password") {
         this.showAlert("Error!", "Email Address or password incorrect!")
-        return console.log ("Password can not be empty!")
+        return console.log("Password can not be empty!")
       }
-      if(err.code === "auth/user-not-found"){
+      if (err.code === "auth/user-not-found") {
         this.showAlert("Error!", "Email Address or password incorrect!")
-        return console.log ("user not found")
+        return console.log("user not found")
       }
     }
 
 
-    }
-    async showAlert(title: string, content: string) {
-      const alert = await this.alertController.create({
-        header: title,
-        message: content,
-        buttons: ['OK']
-      })
-  
-      await alert.present()
-    }
+  }
+  async showAlert(title: string, content: string) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: content,
+      buttons: ['OK']
+    })
 
-    showPassword() {
-      this.showPass = !this.showPass;
-      if(this.showPass){
-        this.type = 'text';
-      } else {
-        this.type = 'password';
-      }
-   }
-  
+    await alert.present()
+  }
+
+  showPassword() {
+    this.showPass = !this.showPass;
+    if (this.showPass) {
+      this.type = 'text';
+    } else {
+      this.type = 'password';
+    }
+  }
+
 }
