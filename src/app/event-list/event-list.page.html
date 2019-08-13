@@ -1,108 +1,132 @@
 <ion-header>
-    <ion-toolbar color="secondary">
-      <ion-title>
-        Event List
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-   
-  <ion-content padding>
-      <ion-card *ngFor="let item of event">
-          <span *ngIf="!item.isEdit; else elseBlock">
-         <ion-card-header> 
-            <ion-card-title color="secondary">{{item.Name}}</ion-card-title>
-            <ion-card-subtitle>Location:{{item.Localtion}}</ion-card-subtitle>
-            <ion-card-subtitle>Time: {{item.Time}}</ion-card-subtitle>
-            <ion-card-subtitle>Scope: {{item.Scope}}</ion-card-subtitle>
-            <ion-card-subtitle>Type: {{item.Type}}</ion-card-subtitle>
-            <ion-card-subtitle>Description:</ion-card-subtitle>
-            <ion-card-content>{{item.Desc}}</ion-card-content>
-          </ion-card-header>
-          <ion-card-content>
-              <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
-                  <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
-                </ion-button>
-              <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
-                <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>     
-              </ion-button>
-          </ion-card-content>
-        </span>      
+  <ion-toolbar color="secondary">
+    <ion-title>
+      Event List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-        <ng-template #elseBlock>
-          <ion-card-header>
-            <ion-card-title>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    Edit
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-card-title>
-          </ion-card-header>
-              <ion-list>
-                <ion-item>
-                    <ion-label><strong>Name</strong></ion-label>
-                    <br>
-                    <ion-input type="text" [(ngModel)]="item.EditName"></ion-input>
-                  </ion-item>
-      
-                  <ion-item>
-                    <ion-label><strong>Description</strong></ion-label>
-                    <ion-textarea type="text" [(ngModel)]="item.EditDescription"></ion-textarea>
-                  </ion-item>
-      
-                  <ion-item>
-                    <ion-label><strong>Location</strong></ion-label>
-                    <ion-input type="text" [(ngModel)]="item.EditLocation"></ion-input>
-                  </ion-item>
-      
-                  <ion-item>
-                    <ion-label><strong>Time</strong></ion-label>
-                    <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm" min="2019-01-01" max="2100-12-31" [(ngModel)]="item.EditTime"></ion-datetime>
-                  </ion-item>
-      
-                  <ion-item>
-                  <ion-label><strong>Scope</strong></ion-label>
-                  <ion-select value="notifications" interface="popover" [(ngModel)]="item.EditScope"> 
-                    <ion-select-option value="CAMT" >CAMT Event</ion-select-option>
-                    <ion-select-option value="CMU" >CMU Event</ion-select-option>
-                  </ion-select>
-                  </ion-item>
-      
-                  <ion-item>
-                  <ion-label><strong>Type</strong></ion-label>
-                    <ion-radio-group name="radio-group"  [(ngModel)]="item.EditType">
-                      <ion-item *ngFor="let item of radio_list" >
-                        <ion-label>{{item.text}}</ion-label>
-                        <ion-radio 
-                        slot="start" 
-                        name="{{item.name}}" 
-                        value="{{item.value}}" 
-                        checked="{{item.checked}}" 
-                        disabled="{{item.disabled}}"
-                         ></ion-radio>
-                    </ion-item>
-                  </ion-radio-group>
-                  </ion-item>
-            </ion-list>
-            
-          
-          <ion-card-content>
-            
-           
+<ion-content padding>
+  <ion-card *ngFor="let item of event">
+    <span *ngIf="!item.isEdit; else elseBlock">
 
-            <ion-col>
-              <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
-                Back
-              </ion-button>
-            </ion-col>
-            <ion-col>
-              <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-                Update
-              </ion-button>
-            </ion-col>
-          </ion-card-content>
-        </ng-template>
-      </ion-card>
+      <div *ngIf="!item.isMember; else elseBlock1 ">
+
+        <ion-card-header>
+          <ion-card-title color="secondary">{{item.Name}}</ion-card-title>
+          <ion-card-subtitle>Location:{{item.Localtion}}</ion-card-subtitle>
+          <ion-card-subtitle>Time: {{item.Time}}</ion-card-subtitle>
+          <ion-card-subtitle>Scope: {{item.Scope}}</ion-card-subtitle>
+          <ion-card-subtitle>Type: {{item.Type}}</ion-card-subtitle>
+          <ion-card-subtitle>Description:</ion-card-subtitle>
+          <ion-card-content>{{item.Desc}}</ion-card-content>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+            Update
+            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+          </ion-button>
+          <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+            Delete
+            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+          <ion-button shape="round" color="warning" size="small" (click)="member(item)">
+            Member
+            <ion-icon size="small" slot="icon-only" name="contacts"></ion-icon>
+          </ion-button>
+        </ion-card-content>
+      </div>
+    </span>
+
+
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-list>
+        <ion-item>
+          <ion-label><strong>Name</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Description</strong></ion-label>
+          <ion-textarea type="text" [(ngModel)]="item.EditDescription"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Location</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditLocation"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Time</strong></ion-label>
+          <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm" min="2019-01-01"
+            max="2100-12-31" [(ngModel)]="item.EditTime"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Scope</strong></ion-label>
+          <ion-select value="notifications" interface="popover" [(ngModel)]="item.EditScope">
+            <ion-select-option value="CAMT">CAMT Event</ion-select-option>
+            <ion-select-option value="CMU">CMU Event</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Type</strong></ion-label>
+          <ion-radio-group name="radio-group" [(ngModel)]="item.EditType">
+            <ion-item *ngFor="let item of radio_list">
+              <ion-label>{{item.text}}</ion-label>
+              <ion-radio slot="start" name="{{item.name}}" value="{{item.value}}" checked="{{item.checked}}"
+                disabled="{{item.disabled}}"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+      </ion-list>
+
+      <ion-card-content>
+        <ion-col>
+          <ion-button fill="outline" color="dark" size="small" (click)="item.isEdit = false">
+            Back
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+            Update
+          </ion-button>
+        </ion-col>
+      </ion-card-content>
+    </ng-template>
+
+    <ng-template #elseBlock1>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-col>
+          <ion-button fill="outline" color="dark" size="small" (click)="item.isMember = false">
+            Back
+          </ion-button>
+        </ion-col>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
 </ion-content>
