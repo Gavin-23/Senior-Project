@@ -15,7 +15,7 @@
         <ion-card-header>
           <ion-card-title color="secondary">{{item.Name}}</ion-card-title>
           <ion-card-subtitle>Location:{{item.Localtion}}</ion-card-subtitle>
-          <ion-card-subtitle>Time: {{item.Time}}</ion-card-subtitle>
+          <ion-card-subtitle>Time: {{item.Time | date:'medium'}}</ion-card-subtitle>
           <ion-card-subtitle>Scope: {{item.Scope}}</ion-card-subtitle>
           <ion-card-subtitle>Type: {{item.Type}}</ion-card-subtitle>
           <ion-card-subtitle>Description:</ion-card-subtitle>
