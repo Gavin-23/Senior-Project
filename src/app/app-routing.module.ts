@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'student-login', loadChildren: './student-login/student-login.module#StudentLoginPageModule' },
   { path: 'staff-login', loadChildren: './staff-login/staff-login.module#StaffLoginPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
+  { path: 'view-event', loadChildren: './student/view-event/view-event.module#ViewEventPageModule' },
 
 ];
 
