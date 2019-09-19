@@ -13,6 +13,7 @@ export class TabsPage implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+		console.log(this.tabs);
 		this.tabs.select("event-list")
 	}
 }

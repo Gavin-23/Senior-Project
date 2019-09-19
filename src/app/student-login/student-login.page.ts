@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router'
 
-
 import { AlertController } from '@ionic/angular'
 
 @Component({
@@ -32,7 +31,7 @@ export class StudentLoginPage implements OnInit {
     const { emailAddress, password, } = this;
     try {
       const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th", password)
-      this.router.navigate(['/tabs'])
+      this.router.navigate(['/student-tabs'])
       return console.log("Successful!")
 
 

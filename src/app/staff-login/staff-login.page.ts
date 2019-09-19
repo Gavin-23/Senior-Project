@@ -21,7 +21,6 @@ export class StaffLoginPage implements OnInit {
     public afAuth: AngularFireAuth,
     public alertController: AlertController,
     public router: Router,
-    public user: UserService,
   ) { }
 
   ngOnInit() {
