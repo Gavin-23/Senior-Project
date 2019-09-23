@@ -1,9 +1,74 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Event</ion-title>
+    <ion-title>
+      Event List
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <ion-card *ngFor="let item of event">
+    <div *ngIf="!item.isDetail; else elseBlock">
+      <ion-card-header>
+        <ion-card-title color="secondary">{{item.Name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- <ion-button fill="outline" color="primary" size="small" (click)="EditRecord(item)">
+            {{item.type}}
+            <ion-icon size="small" slot="icon-only" name="ios-remove-circle-outline"></ion-icon>
+          </ion-button> -->
 
+        <!-- <ion-button *ngIf="!ShowStatus" fill="outline" color="primary" type="{{type}}" item-right (click)="ShowStatus()">
+            <ion-icon size="small" slot="icon-only" name="ios-remove-circle-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button *ngIf="ShowStatus" fill="outline" color="primary" type="button" item-right (click)="ShowStatus()">
+            <ion-icon size="small" slot="icon-only" name="ios-add-circle-outline"></ion-icon>
+          </ion-button> -->
+
+        <ion-button *ngIf="!status" fill="outline" color="primary" size="small" item-right (click)="FollowEvent()">
+          Follow
+          <ion-icon slot="end" name="ios-add-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="status" fill="outline" color="primary" size="small" item-right (click)="FollowEvent()">
+          Unfollow
+          <ion-icon slot="end" name="ios-remove-circle-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="outline" color="warning" size="small" item-right (click)="Detail(item)">
+          Detail
+          <ion-icon  size="small" slot="end" name="ios-more" ></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </div>
+
+
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Detail
+                <ion-card-subtitle>Location:{{item.Localtion}}</ion-card-subtitle>
+                <ion-card-subtitle>Time: {{item.Time | date:'medium'}}</ion-card-subtitle>
+                <ion-card-subtitle>Scope: {{item.Scope}}</ion-card-subtitle>
+                <ion-card-subtitle>Type: {{item.Type}}</ion-card-subtitle>
+                <ion-card-subtitle>Description:</ion-card-subtitle>
+                <ion-card-content>{{item.Desc}}</ion-card-content>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-col>
+          <ion-button fill="outline" color="dark" size="small" (click)="item.isDetail = false">
+            Back
+          </ion-button>
+        </ion-col>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
 </ion-content>

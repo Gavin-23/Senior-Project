@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage/storage';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase';
 
 @Injectable({
 	providedIn: 'root'
@@ -8,7 +11,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class UserService {
 
 	constructor(
-		private firestore: AngularFirestore
+		private auth: AngularFireAuth,
+		private firestore: AngularFirestore,
+		private afStorage: AngularFireStorage
+
 	) { }
 
 
@@ -27,6 +33,13 @@ export class UserService {
 	delete_Event(record_id) {
 		this.firestore.doc('Event/' + record_id).delete();
 	}
+
+
+	async follow_Event(record) {
+
+
+	}
+
 
 
 }

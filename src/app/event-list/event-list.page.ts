@@ -225,7 +225,6 @@ export class EventListPage implements OnInit {
 
   member(click) {
     click.isMember = true;
-
   }
 
 }

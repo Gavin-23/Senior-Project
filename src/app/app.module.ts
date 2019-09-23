@@ -15,7 +15,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { HttpModule } from '@angular/http'
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-
+import { AngularFireStorageModule } from '@angular/fire/storage'
+import { from } from 'rxjs';
+import { NgCalendarModule } from 'ionic2-calendar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +30,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    NgCalendarModule,
     HttpModule
   ],
   providers: [
