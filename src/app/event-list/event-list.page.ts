@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { } from '@angular/fire/database';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-event-list',
@@ -21,31 +22,40 @@ export class EventListPage implements OnInit {
   time: string;
   scope: string;
   type: string;
+  userId: string;
+
 
   constructor(
     public http: Http,
     public afstore: AngularFirestore,
     public user: UserService,
     private alertController: AlertController,
-    private router: Router) { }
+    private router: Router) {
+    this.userId = firebase.auth().currentUser.uid
+  }
 
   ngOnInit() {
     this.user.read_Event().subscribe(data => {
-
       this.event = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          Name: e.payload.doc.data()['Name'],
-          Desc: e.payload.doc.data()['Description'],
-          Localtion: e.payload.doc.data()['Location'],
-          Time: e.payload.doc.data()['Time'],
-          Scope: e.payload.doc.data()['Scope'],
-          Type: e.payload.doc.data()['Type'],
-        };
+        if (e.payload.doc.data()['UID'] == firebase.auth().currentUser.uid) {
+          return {
+            id: e.payload.doc.id,
+            Name: e.payload.doc.data()['Name'],
+            Desc: e.payload.doc.data()['Description'],
+            Localtion: e.payload.doc.data()['Location'],
+            Time: e.payload.doc.data()['Time'],
+            Scope: e.payload.doc.data()['Scope'],
+            Type: e.payload.doc.data()['Type'],
+          };
+        } 
       })
-      console.log(this.event);
-      console.log("read event successfully!");
+      // console.log(this.event);
+      // console.log(localStorage.getItem('currentUser'));
+
+      // console.log(localStorage.getItem(this.userId));
+
+
+      // console.log("read event successfully!");
     });
   }
 

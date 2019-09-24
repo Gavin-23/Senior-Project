@@ -9,7 +9,6 @@
 <ion-content padding>
   <ion-card *ngFor="let item of event">
     <span *ngIf="!item.isEdit; else elseBlock">
-
       <div *ngIf="!item.isMember; else elseBlock1 ">
 
         <ion-card-header>

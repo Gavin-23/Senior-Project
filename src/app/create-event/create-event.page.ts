@@ -6,6 +6,7 @@ import { firestore } from 'firebase/app';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { validateConfig } from '@angular/router/src/config';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-create-event',
@@ -21,14 +22,19 @@ export class CreateEventPage implements OnInit {
   time: string;
   scope: string;
   type: string;
-
-
+  member: string[];
+  userId: string;
+  
   constructor(
     public http: Http,
     public afstore: AngularFirestore,
     public user: UserService,
     private alertController: AlertController,
-    private router: Router) { }
+    private router: Router) {
+    this.userId = firebase.auth().currentUser.uid
+  }
+  
+  // ref = firebase.database().ref().child(this.userId).child
 
 
   ngOnInit() {
@@ -45,6 +51,7 @@ export class CreateEventPage implements OnInit {
           Scope: e.payload.doc.data()['Scope'],
           Type: e.payload.doc.data()['Type'],
         };
+      
       })
       console.log(this.user);
 
@@ -91,6 +98,9 @@ export class CreateEventPage implements OnInit {
       record['Time'] = this.time;
       record['Scope'] = this.scope;
       record['Type'] = this.type;
+      record['Member'] = [];
+      record['UID'] = this.userId;
+
       this.user.create_NewEvent(record).then(resp => {
         this.name = "";
         this.desc = "";
@@ -98,11 +108,14 @@ export class CreateEventPage implements OnInit {
         this.time = "";
         this.scope = "";
         this.type = "";
+        this.member = [];
+        this.userId = "";
         this.showAlert("Successfully", "Create Success!");
         this.router.navigateByUrl('tabs/event-list');
         console.log("Create Successfully!")
         console.log("show create successfully alert")
 
+        localStorage.setItem(this.userId,this.event);
         //console.log(resp);
       })
         .catch(error => {

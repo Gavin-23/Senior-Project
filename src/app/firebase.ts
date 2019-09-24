@@ -1,3 +1,5 @@
+import { element } from '@angular/core/src/render3';
+
 const config = {
     apiKey:"AIzaSyAMI27m_VLrmcQEwF7AkbO5fkZpMxNOIPY",
     authDomain: "csla-0423.firebaseapp.com",
@@ -9,3 +11,10 @@ const config = {
 }
 
 export default config;
+
+// export const snapshotToArray = snashot => {
+//     let returnArray [];
+//     snashot.forEach(element => {
+//         let
+//     })
+// }

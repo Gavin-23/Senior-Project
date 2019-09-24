@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage/storage';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase';
+import { AngularFireAuth } from '@angular/fire/auth/auth';
+import * as firebase from 'firebase';
 
 @Injectable({
 	providedIn: 'root'
 })
 
 export class UserService {
+	userId: string;
 
 	constructor(
-		private auth: AngularFireAuth,
 		private firestore: AngularFirestore,
-		private afStorage: AngularFireStorage
+		public afAuth: AngularFireAuth,
+		
 
-	) { }
+	) { 
+		this.userId = firebase.auth().currentUser.uid
+	}
 
 
 	create_NewEvent(record) {
@@ -23,6 +25,7 @@ export class UserService {
 	}
 
 	read_Event() {
+
 		return this.firestore.collection('Event').snapshotChanges();
 	}
 

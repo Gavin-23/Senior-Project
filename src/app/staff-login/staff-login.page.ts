@@ -30,7 +30,8 @@ export class StaffLoginPage implements OnInit {
   async login() {
     const { emailAddress, password, } = this;
     try {
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th", password)
+      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th", password);
+      localStorage.setItem('currentUser', this.emailAddress);
       this.router.navigate(['/tabs'])
       return console.log("Successful!")
 
