@@ -37,7 +37,9 @@ export class EventListPage implements OnInit {
   ngOnInit() {
     this.user.read_Event().subscribe(data => {
       this.event = data.map(e => {
-        if (e.payload.doc.data()['UID'] == firebase.auth().currentUser.uid) {
+        if (e.payload.doc.data()['UID'] !== firebase.auth().currentUser.uid) {
+          return {isCurrentUser: true}
+        } else {
           return {
             id: e.payload.doc.id,
             Name: e.payload.doc.data()['Name'],
