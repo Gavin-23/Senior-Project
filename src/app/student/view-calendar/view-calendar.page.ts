@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar'
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-view-calendar',
@@ -30,8 +31,11 @@ export class ViewCalendarPage implements OnInit {
   viewTitle = '';
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
+  userId: string;
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID)private locale: string) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID)private locale: string) { 
+    this.userId = firebase.auth().currentUser.uid;
+  }
 
   ngOnInit() {
     this.resetEvent();
@@ -75,7 +79,7 @@ export class ViewCalendarPage implements OnInit {
 
   back() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
-    swiper.slideNext();
+    swiper.slidePrev();
   }
 
   next() {

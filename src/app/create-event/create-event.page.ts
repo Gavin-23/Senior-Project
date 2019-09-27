@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
-import { firestore } from 'firebase/app';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { validateConfig } from '@angular/router/src/config';
 import * as firebase from 'firebase';
 
 @Component({
@@ -24,38 +22,37 @@ export class CreateEventPage implements OnInit {
   type: string;
   member: string[];
   userId: string;
-  
+  // status= false;
+
   constructor(
     public http: Http,
     public afstore: AngularFirestore,
     public user: UserService,
     private alertController: AlertController,
     private router: Router) {
-    this.userId = firebase.auth().currentUser.uid
   }
   
-  // ref = firebase.database().ref().child(this.userId).child
 
 
   ngOnInit() {
-    this.user.read_Event().subscribe(data => {
+    // this.user.read_Event().subscribe(data => {
 
-      this.event = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          Name: e.payload.doc.data()['Name'],
-          Desc: e.payload.doc.data()['Description'],
-          Localtion: e.payload.doc.data()['Location'],
-          Time: e.payload.doc.data()['Time'],
-          Scope: e.payload.doc.data()['Scope'],
-          Type: e.payload.doc.data()['Type'],
-        };
+    //   this.event = data.map(e => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       isEdit: false,
+    //       Name: e.payload.doc.data()['Name'],
+    //       Desc: e.payload.doc.data()['Description'],
+    //       Localtion: e.payload.doc.data()['Location'],
+    //       Time: e.payload.doc.data()['Time'],
+    //       Scope: e.payload.doc.data()['Scope'],
+    //       Type: e.payload.doc.data()['Type'],
+    //     };
       
-      })
-      console.log(this.user);
+    //   })
+    //   console.log(this.user);
 
-    });
+    // });
   }
 
   CreateRecord() {
@@ -91,6 +88,7 @@ export class CreateEventPage implements OnInit {
       console.log("show type empty alert")
 
     } else {
+      this.userId = firebase.auth().currentUser.uid
       let record = {};
       record['Name'] = this.name;
       record['Description'] = this.desc;
@@ -98,8 +96,9 @@ export class CreateEventPage implements OnInit {
       record['Time'] = this.time;
       record['Scope'] = this.scope;
       record['Type'] = this.type;
-      record['Member'] = [];
       record['UID'] = this.userId;
+      // record['Status'] = this.status;
+      record['Member'] = [];
 
       this.user.create_NewEvent(record).then(resp => {
         this.name = "";
@@ -108,15 +107,13 @@ export class CreateEventPage implements OnInit {
         this.time = "";
         this.scope = "";
         this.type = "";
-        this.member = [];
         this.userId = "";
+        // this.status = false;
+        this.member = [];
         this.showAlert("Successfully", "Create Success!");
         this.router.navigateByUrl('tabs/event-list');
         console.log("Create Successfully!")
         console.log("show create successfully alert")
-
-        localStorage.setItem(this.userId,this.event);
-        //console.log(resp);
       })
         .catch(error => {
           console.log(error);

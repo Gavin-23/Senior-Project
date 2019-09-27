@@ -26,11 +26,12 @@
             <ion-icon size="small" slot="icon-only" name="ios-add-circle-outline"></ion-icon>
           </ion-button> -->
 
-        <ion-button *ngIf="!status" fill="outline" color="primary" size="small" item-right (click)="FollowEvent()">
+        <ion-button *ngIf="checkStatus(item)" fill="outline" color="primary" size="small" item-right (click)="FollowEvent(item)">
           Follow
           <ion-icon slot="end" name="ios-add-circle-outline"></ion-icon>
         </ion-button>
-        <ion-button *ngIf="status" fill="outline" color="primary" size="small" item-right (click)="FollowEvent()">
+
+        <ion-button *ngIf="!checkStatus(item)" fill="outline" color="primary" size="small" item-right (click)="FollowEvent(item)">
           Unfollow
           <ion-icon slot="end" name="ios-remove-circle-outline"></ion-icon>
         </ion-button>

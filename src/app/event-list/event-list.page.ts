@@ -41,6 +41,7 @@ export class EventListPage implements OnInit {
           return {isCurrentUser: true}
         } else {
           return {
+            isCurrentUser: false,
             id: e.payload.doc.id,
             Name: e.payload.doc.data()['Name'],
             Desc: e.payload.doc.data()['Description'],
@@ -51,11 +52,7 @@ export class EventListPage implements OnInit {
           };
         } 
       })
-      // console.log(this.event);
-      // console.log(localStorage.getItem('currentUser'));
-
-      // console.log(localStorage.getItem(this.userId));
-
+      console.log(this.event);
 
       // console.log("read event successfully!");
     });

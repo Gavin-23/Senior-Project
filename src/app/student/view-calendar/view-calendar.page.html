@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ viewTitle }}</ion-title>
-    <ion-buttons solt="end">
-      <ion-buttons (click)="today()">Today</ion-buttons>
-    </ion-buttons>
+    <ion-title>Calendar</ion-title>
+    <ion-buttons fill="outline" (click)="today()">Today</ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +12,7 @@
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
       <ion-card-title>New Event</ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngIf="!collapseCard">
+    <ion-card-content *ngIf="collapseCard">
 
       <ion-item>
         <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
@@ -24,11 +22,13 @@
       </ion-item>
       <ion-item>
         <ion-label>Start</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm"  [(ngModel)]="event.startTime"></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime">
+        </ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm"  [(ngModel)]="event.endTime"></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime">
+        </ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>All Day?</ion-label>
@@ -55,12 +55,17 @@
         Day</ion-button>
     </ion-col>
 
+
     <!-- Move back one screen of the slides -->
     <ion-col size="6" text-left>
       <ion-button fill="clear" (click)="back()">
         <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
       </ion-button>
+      {{viewTitle}}
     </ion-col>
+
+    
+   
 
     <!-- Move forward one screen of the slides -->
     <ion-col size="6" text-right>
@@ -68,6 +73,8 @@
         <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-col>
+
+
   </ion-row>
 
   <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"

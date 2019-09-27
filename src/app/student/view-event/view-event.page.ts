@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { } from '@angular/fire/database';
 import { UserService } from 'src/app/user.service';
 import { AngularFireStorage } from '@angular/fire/storage';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-view-event',
@@ -23,6 +24,8 @@ export class ViewEventPage implements OnInit {
   scope: string;
   type: string;
   status = false;
+  userId: string;
+
 
   constructor(
     public http: Http,
@@ -32,12 +35,10 @@ export class ViewEventPage implements OnInit {
     private router: Router,
     private afStorage: AngularFireStorage
   ) {
-
   }
 
   ngOnInit() {
     this.user.read_Event().subscribe(data => {
-
       this.event = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -48,41 +49,57 @@ export class ViewEventPage implements OnInit {
           Time: e.payload.doc.data()['Time'],
           Scope: e.payload.doc.data()['Scope'],
           Type: e.payload.doc.data()['Type'],
+          Member: e.payload.doc.data()['Member'],
         };
       })
+
+      
+      
       console.log(this.event);
       console.log("read event successfully!");
     });
+    this.userId = firebase.auth().currentUser.uid;
+    // for(let item of this.event){
+    //   console.log(item);
+    // }
+
   }
 
-  showStatus(record) {
-    record.isEdit = true;
-    record.FollowName = record.Name;
-    record.FollowDescription = record.Desc;
-    record.FollowLocation = record.Localtion;
-    record.FollowTime = record.Time;
-    record.FollowScope = record.Scope;
-    record.FollowType = record.Type;
-    record.FollowStatus = record.status;
+  // showStatus(record) {
+  //   record.isEdit = true;
+  //   record.FollowName = record.Name;
+  //   record.FollowDescription = record.Desc;
+  //   record.FollowLocation = record.Localtion;
+  //   record.FollowTime = record.Time;
+  //   record.FollowScope = record.Scope;
+  //   record.FollowType = record.Type;
+  //   record.FollowStatus = record.status;
+  // }
+  checkStatus(item){
+    return !Object.values(item.Member).includes(this.userId)
   }
-
   FollowEvent(recordRow) {
-    this.status = !this.status;
+  
+    this.userId = firebase.auth().currentUser.uid;
+    recordRow.status = !recordRow.status;
+    if (recordRow.status == true) {
+      console.log(typeof(recordRow.Member))
+      let counter = Object.keys(recordRow.Member).length-1;
+      
+      let record = recordRow.Member;
+      console.log(counter)
+    
+      record[counter+1]=this.userId;
 
-    if (this.status == true) {
-      let record = {};
-      record['Name'] = recordRow.FollowName;
-      record['Description'] = recordRow.FollowDescription;
-      record['Location'] = recordRow.FollowLocation;
-      record['Time'] = recordRow.FollowTime;
-      record['Scope'] = recordRow.FollowScope;
-      record['Type'] = recordRow.FollowType;
-      record['Status'] = recordRow.FollowStatus;
-      this.user.update_Event(recordRow.id, record);
-      recordRow.isEdit = false;
-      console.log("Update Successfully!")
-      console.log("show create successfully alert")
+      console.log(record)
+      this.user.follow_Event(recordRow.id, record);
+      console.log("Follow Successfully!")
+      console.log("show follow successfully alert")
+    } else if (recordRow.status == false) {
+      console.log(recordRow.status)
+      // this.user.unFollow_Event(rowID);
     }
+    // this.counter =0;
 
   }
   Detail(click) {
