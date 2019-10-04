@@ -53,54 +53,43 @@ export class ViewEventPage implements OnInit {
         };
       })
 
-      
-      
       console.log(this.event);
       console.log("read event successfully!");
     });
     this.userId = firebase.auth().currentUser.uid;
-    // for(let item of this.event){
-    //   console.log(item);
-    // }
 
   }
 
-  // showStatus(record) {
-  //   record.isEdit = true;
-  //   record.FollowName = record.Name;
-  //   record.FollowDescription = record.Desc;
-  //   record.FollowLocation = record.Localtion;
-  //   record.FollowTime = record.Time;
-  //   record.FollowScope = record.Scope;
-  //   record.FollowType = record.Type;
-  //   record.FollowStatus = record.status;
-  // }
   checkStatus(item){
     return !Object.values(item.Member).includes(this.userId)
   }
+
   FollowEvent(recordRow) {
-  
     this.userId = firebase.auth().currentUser.uid;
     recordRow.status = !recordRow.status;
     if (recordRow.status == true) {
-      console.log(typeof(recordRow.Member))
       let counter = Object.keys(recordRow.Member).length-1;
-      
       let record = recordRow.Member;
-      console.log(counter)
-    
       record[counter+1]=this.userId;
-
-      console.log(record)
       this.user.follow_Event(recordRow.id, record);
       console.log("Follow Successfully!")
       console.log("show follow successfully alert")
-    } else if (recordRow.status == false) {
-      console.log(recordRow.status)
-      // this.user.unFollow_Event(rowID);
-    }
-    // this.counter =0;
+    } 
+  }
 
+  UnFollowEvent(recordRow) {
+    recordRow.status = this.status;
+    let record = recordRow.Member;
+    console.log(this.userId)
+    for(let i=0;i<record.length;i++){
+      console.log(record[i])
+        if(record[i]==this.userId){
+          record.splice(i, 1);
+        }
+        this.user.follow_Event(recordRow.id, record);
+    }
+    console.log(record);
+    
   }
   Detail(click) {
     click.isDetail = true;

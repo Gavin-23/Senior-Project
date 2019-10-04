@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import { Router } from '@angular/router'
 
 import { AlertController } from '@ionic/angular'
@@ -25,8 +24,6 @@ export class StudentLoginPage implements OnInit {
 
   ngOnInit() {
   }
-
-  // abcdefg + @gmal.com
   async login() {
     const { emailAddress, password, } = this;
     try {

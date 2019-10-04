@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title center text-center>
-      STUDENT LOGIN
+      REGISTER
     </ion-title>
     <ion-button slot="start" href="/login" class="button.button-back" color="white">
       <ion-icon name="arrow-back" color="primary"></ion-icon>
@@ -25,6 +25,15 @@
     </ion-list>
 
     <ion-list>
+      <ion-label position="floating">Student ID</ion-label>
+      <div class="input-group input-group-lg">
+        <ion-item>
+          <ion-input placeholder="Student ID" [(ngModel)]="studentId" name="studentId"></ion-input>
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <ion-list>
       <ion-label position="floating">Password</ion-label>
       <div class="input-group input-group-lg">
         <ion-item>
@@ -38,7 +47,7 @@
         </ion-item>
       </div>
     </ion-list>
-    <ion-button size="default" expand="block" class="button-student" color="white" (click)="login()">Login
+    <ion-button size="default" expand="block" class="button-register" color="white" (click)="register()">Regiter
     </ion-button>
   </form>
 </ion-content>
