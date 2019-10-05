@@ -18,7 +18,7 @@ export class RegisterPage implements OnInit {
   public type = 'password';
   public showPass = false;
   userId: string;
-  studentId: number
+  studentId: string;
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -43,7 +43,7 @@ export class RegisterPage implements OnInit {
 
       this.user.setUser({
         emailAddress,
-        uid: res.user.uid
+        uid: res.user.uid,
       })
         this.showAlert("Successful!", "Register Successful!")
         this.router.navigate(['/login'])
@@ -53,8 +53,6 @@ export class RegisterPage implements OnInit {
       console.dir(error)
     }
   }
-
-
 
   async showAlert(title: string, content: string) {
     const alert = await this.alertController.create({

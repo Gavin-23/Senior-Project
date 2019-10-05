@@ -30,7 +30,7 @@
               Delete
               <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
             </ion-button>
-            <ion-button shape="round" color="warning" size="small" (click)="member(item)">
+            <ion-button shape="round" color="warning" size="small" (click)="Member(item)">
               Member
               <ion-icon size="small" slot="icon-only" name="contacts"></ion-icon>
             </ion-button>
@@ -119,7 +119,7 @@
             </ion-grid>
           </ion-card-title>
         </ion-card-header>
-
+          <ion-card-content>{{item.Member}}</ion-card-content>
         <ion-card-content>
           <ion-col>
             <ion-button fill="outline" color="dark" size="small" (click)="item.isMember = false">

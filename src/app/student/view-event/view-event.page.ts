@@ -17,15 +17,16 @@ import * as firebase from 'firebase';
 })
 export class ViewEventPage implements OnInit {
   event: any;
+  students: any;
   name: string;
   desc: string;
   localtion: string;
   time: string;
   scope: string;
   type: string;
-  status = false;
   userId: string;
-
+  studentId: string;
+  status= false;
 
   constructor(
     public http: Http,
@@ -52,44 +53,56 @@ export class ViewEventPage implements OnInit {
           Member: e.payload.doc.data()['Member'],
         };
       })
-
       console.log(this.event);
       console.log("read event successfully!");
     });
-    this.userId = firebase.auth().currentUser.uid;
 
+  //  this.user.getStudentId().subscribe(data => {
+  //     this.students = data.map(e => {
+  //       if (e.payload.doc.id == firebase.auth().currentUser.uid) {
+  //         return this.studentId = e.payload.doc.data()['studentId']
+  //       }
+  //     })
+  //   });
+
+    this.userId = firebase.auth().currentUser.uid;
   }
 
-  checkStatus(item){
+  checkStatus(item) {
     return !Object.values(item.Member).includes(this.userId)
   }
 
   FollowEvent(recordRow) {
-    this.userId = firebase.auth().currentUser.uid;
+
     recordRow.status = !recordRow.status;
     if (recordRow.status == true) {
-      let counter = Object.keys(recordRow.Member).length-1;
+      let counter = Object.keys(recordRow.Member).length - 1;
       let record = recordRow.Member;
-      record[counter+1]=this.userId;
+      console.log(this.userId)
+      console.log(this.studentId)
+
+      record[counter + 1] = this.userId;
+      console.log(record)
+
       this.user.follow_Event(recordRow.id, record);
-      console.log("Follow Successfully!")
-      console.log("show follow successfully alert")
-    } 
+      // console.log("Follow Successfully!")
+      // console.log("show follow successfully alert")
+    }
+
   }
 
   UnFollowEvent(recordRow) {
     recordRow.status = this.status;
     let record = recordRow.Member;
-    console.log(this.userId)
-    for(let i=0;i<record.length;i++){
+    for (let i = 0; i < record.length; i++) {
       console.log(record[i])
-        if(record[i]==this.userId){
-          record.splice(i, 1);
-        }
-        this.user.follow_Event(recordRow.id, record);
+      if (record[i] == this.userId) {
+        record.splice(i, 1);
+      }
+      this.user.follow_Event(recordRow.id, record);
     }
     console.log(record);
-    
+
   }
   Detail(click) {
     click.isDetail = true;

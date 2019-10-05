@@ -24,7 +24,6 @@ export class EventListPage implements OnInit {
   type: string;
   userId: string;
 
-
   constructor(
     public http: Http,
     public afstore: AngularFirestore,
@@ -38,7 +37,7 @@ export class EventListPage implements OnInit {
     this.user.read_Event().subscribe(data => {
       this.event = data.map(e => {
         if (e.payload.doc.data()['UID'] !== firebase.auth().currentUser.uid) {
-          return {isCurrentUser: true}
+          return { isCurrentUser: true }
         } else {
           return {
             isCurrentUser: false,
@@ -49,37 +48,14 @@ export class EventListPage implements OnInit {
             Time: e.payload.doc.data()['Time'],
             Scope: e.payload.doc.data()['Scope'],
             Type: e.payload.doc.data()['Type'],
+            Member: e.payload.doc.data()['Member']
           };
-        } 
+        }
       })
       console.log(this.event);
-
-      // console.log("read event successfully!");
+      console.log("read event successfully!");
     });
   }
-
-  // CreateRecord() {
-  //   let record = {}
-  //   record['Name'] = this.name;
-  //   record['Description'] = this.desc;
-  //   record['Location'] = this.localtion;
-  //   record['Time'] = this.time;
-  //   record['Scope'] = this.scope;
-  //   record['Type'] = this.type;
-  //   this.user.create_NewEvent(record).then(resp => {
-  //     this.name = "";
-  //     this.desc = "";
-  //     this.localtion = "";
-  //     this.time = "";
-  //     this.scope = "";
-  //     this.type = "";
-  //     console.log(resp);
-  //   }) 
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
-
 
   RemoveRecord(rowID) {
     console.log('show confirmation alert');
@@ -91,12 +67,10 @@ export class EventListPage implements OnInit {
         this.showAlert("Successfully!", "Delete Success!");
         console.log('show delete success alert');
         console.log('Deleted');
-
       } else {
         this.router.navigateByUrl('tabs/event-list');
         console.log('Canceled!');
         console.log('show canceled alert');
-
       }
     })
   }
@@ -232,7 +206,7 @@ export class EventListPage implements OnInit {
     await alert.present()
   }
 
-  member(click) {
+  Member(click) {
     click.isMember = true;
   }
 
