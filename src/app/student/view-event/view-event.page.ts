@@ -26,7 +26,7 @@ export class ViewEventPage implements OnInit {
   type: string;
   userId: string;
   studentId: string;
-  status= false;
+  status = false;
 
   constructor(
     public http: Http,
@@ -57,13 +57,13 @@ export class ViewEventPage implements OnInit {
       console.log("read event successfully!");
     });
 
-  //  this.user.getStudentId().subscribe(data => {
-  //     this.students = data.map(e => {
-  //       if (e.payload.doc.id == firebase.auth().currentUser.uid) {
-  //         return this.studentId = e.payload.doc.data()['studentId']
-  //       }
-  //     })
-  //   });
+    //  this.user.getStudentId().subscribe(data => {
+    //     this.students = data.map(e => {
+    //       if (e.payload.doc.id == firebase.auth().currentUser.uid) {
+    //         return this.studentId = e.payload.doc.data()['studentId']
+    //       }
+    //     })
+    //   });
 
     this.userId = firebase.auth().currentUser.uid;
   }
@@ -92,19 +92,63 @@ export class ViewEventPage implements OnInit {
   }
 
   UnFollowEvent(recordRow) {
-    recordRow.status = this.status;
-    let record = recordRow.Member;
-    for (let i = 0; i < record.length; i++) {
-      console.log(record[i])
-      if (record[i] == this.userId) {
-        record.splice(i, 1);
+    this.presentAlertConfirm('Are you sure you want to unfollow this event?').then(confirm => {
+      if (confirm) {
+        recordRow.status = this.status;
+        let record = recordRow.Member;
+        for (let i = 0; i < record.length; i++) {
+          console.log(record[i])
+          if (record[i] == this.userId) {
+            record.splice(i, 1);
+          }
+          this.user.follow_Event(recordRow.id, record);
+        }
+        console.log(record);
+        this.showAlert("Successfully!", "Unfollow Success!");
+        console.log('show delete success alert');
+        console.log('Unfollow');
+      } else {
+        // this.router.navigateByUrl('view-event');
+        console.log('Canceled!');
+        console.log('show canceled alert');
       }
-      this.user.follow_Event(recordRow.id, record);
-    }
-    console.log(record);
+    })
+
 
   }
   Detail(click) {
     click.isDetail = true;
+  }
+
+  async presentAlertConfirm(content: string) {
+    let resolveFunction: (confirm: boolean) => void;
+    const promise = new Promise<boolean>(resolve => {
+      resolveFunction = resolve;
+    });
+    const alert = await this.alertController.create({
+      header: 'Confirmation!',
+      message: content,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => resolveFunction(false)
+        }, {
+          text: 'Confirm',
+          handler: () => resolveFunction(true)
+        }
+      ]
+    });
+
+    await alert.present();
+    return promise;
+  }
+
+  async showAlert(title: string, content: string) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: content,
+      buttons: ['OK']
+    })
+    await alert.present()
   }
 }
