@@ -65,4 +65,7 @@ export class UserService {
 		this.firestore.doc('Event/' + recordID).update({Member:record});
 	}
 
+	create_PersonalEvent(record) {
+		this.firestore.doc('Students/' + record).collection('Personal Event').add(record);
+	}
 }
