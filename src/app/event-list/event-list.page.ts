@@ -16,6 +16,7 @@ import * as firebase from 'firebase';
 })
 export class EventListPage implements OnInit {
   event: any;
+  students: any;
   name: string;
   desc: string;
   localtion: string;
@@ -23,6 +24,8 @@ export class EventListPage implements OnInit {
   scope: string;
   type: string;
   userId: string;
+  studentId: string;
+  status = false;
 
   constructor(
     public http: Http,
@@ -208,6 +211,36 @@ export class EventListPage implements OnInit {
 
   Member(click) {
     click.isMember = true;
+  }
+
+  checkStatus(item) {
+    return !Object.values(item.Member).includes(this.studentId)
+  }
+
+  RemoveMember(recordRow,id){
+    console.log(recordRow)
+    console.log('show confirmation alert')
+    this.presentAlertConfirm('Are you sure you want to remove this member?').then(confirm => {
+      if (confirm) {
+        let record = recordRow.Member;
+
+        for (let i = 0; i < record.length; i++) {
+          console.log(record[i])
+          if (record[i] == id) {
+            record.splice(i, 1);
+          }
+          this.user.follow_Event(recordRow.id, record);
+        }
+        console.log(record);
+        this.showAlert("Successfully!", "Remove Success!");
+        console.log('show remove success alert');
+        console.log('Remove Successfully!');
+      } else {
+        // this.router.navigateByUrl('view-event');
+        console.log('Remove Canceled!');
+      }
+    })
+
   }
 
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Calendar</ion-title>
-    <ion-buttons fill="outline" (click)="today()">Today</ion-buttons>
+    <!-- <ion-buttons fill="outline" (click)="today()">Today</ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -15,27 +15,47 @@
     <ion-card-content *ngIf="collapseCard">
 
       <ion-item>
-        <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
+        <ion-input type="text" placeholder="Event Name" [(ngModel)]="event.name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
+        <ion-input type="text" placeholder="Location" [(ngModel)]="event.location"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Start</ion-label>
+        <ion-textarea type="text" placeholder="Description" [(ngModel)]="event.description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Start Time</ion-label>
         <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime">
         </ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>End</ion-label>
+        <ion-label>End Time</ion-label>
         <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime">
         </ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>All Day?</ion-label>
-        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+        <ion-label>Type</ion-label>
+        <ion-select>
+          <ion-select-option class="red">Alice in Chains</ion-select-option>
+          <ion-select-option>Green Day</ion-select-option>
+          <ion-select-option selected>Nirvana</ion-select-option>
+          <ion-select-option>Pearl Jam</ion-select-option>
+          <ion-select-option>Smashing Pumpkins</ion-select-option>
+          <ion-select-option>Soundgarden</ion-select-option>
+          <ion-select-option>Stone Temple Pilots</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Add Event
-      </ion-button>
+
+      <!-- <ion-row class="colorselect color_{{color.slice(1,7)}}">
+        <ion-item>
+          <ion-label class="primarylabel">Color</ion-label>
+          <ion-select (click)="prepareColorSelector()" (ionChange)="setColor(this.color)" [(ngModel)]="color">
+            <ion-select-option (ionSelect)="selectColor(optioncolor)" *ngFor="let optioncolor of colors" [value]="optioncolor">{{optioncolor}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-row>-->
+      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Create 
+      </ion-button> 
 
     </ion-card-content>
   </ion-card>
