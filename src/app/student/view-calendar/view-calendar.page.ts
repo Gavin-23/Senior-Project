@@ -25,7 +25,7 @@ export class ViewCalendarPage implements OnInit {
   eventSource = [];
 
   calendar = {
-    mode: 'day',
+    mode: 'month',
     currentDate: new Date()
   }
 
@@ -45,6 +45,50 @@ export class ViewCalendarPage implements OnInit {
   ngOnInit() {
     // this.resetEvent();
   }
+
+  radio_list = [
+    {
+      id: '1',
+      name: 'radio_list',
+      value: 'black',
+      text: 'Black',
+      color: 'dark',
+      disabled: false,
+      checked: false,
+    }, {
+      id: '2',
+      name: 'radio_list',
+      value: 'green',
+      text: 'Green',
+      color: 'success',
+      disabled: false,
+      checked: true,
+    }, {
+      id: '3',
+      name: 'radio_list',
+      value: 'yellow',
+      text: 'Yellow',
+      color: 'warning',
+      disabled: false,
+      checked: true,
+    }, {
+      id: '4',
+      name: 'radio_list',
+      value: 'purple',
+      text: 'Purple',
+      color: 'tertiary',
+      disabled: false,
+      checked: true,
+    }, {
+      id: '5',
+      name: 'radio_list',
+      value: 'red',
+      text: 'Red',
+      color: 'danger',
+      disabled: false,
+      checked: true,
+    },
+  ];
 
   resetEvent() {
     this.event = {

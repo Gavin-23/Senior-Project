@@ -35,24 +35,7 @@ export class CreateEventPage implements OnInit {
 
 
   ngOnInit() {
-    // this.user.read_Event().subscribe(data => {
-
-    //   this.event = data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       isEdit: false,
-    //       Name: e.payload.doc.data()['Name'],
-    //       Desc: e.payload.doc.data()['Description'],
-    //       Localtion: e.payload.doc.data()['Location'],
-    //       Time: e.payload.doc.data()['Time'],
-    //       Scope: e.payload.doc.data()['Scope'],
-    //       Type: e.payload.doc.data()['Type'],
-    //     };
-      
-    //   })
-    //   console.log(this.user);
-
-    // });
+ 
   }
 
   CreateRecord() {
