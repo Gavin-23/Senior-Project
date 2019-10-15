@@ -9,74 +9,145 @@
 
   <!-- Card for adding a new event -->
   <ion-card>
-    <ion-card-header tappable (click)="collapseCard = !collapseCard">
-      <ion-card-title>New Event</ion-card-title>
-    </ion-card-header>
-    <ion-card-content *ngIf="collapseCard">
+    <div *ngIf="!event.isEdit; else elseBlock">
+      <ion-card-header tappable (click)="collapseCard = !collapseCard">
+        <ion-card-title>New Event</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="collapseCard">
 
-      <ion-item>
-        <ion-label>Name</ion-label>
-        <ion-input type="text" placeholder="Event Name" [(ngModel)]="event.name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Location</ion-label>
-        <ion-input type="text" placeholder="Location" [(ngModel)]="event.location"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Description</ion-label>
-        <ion-textarea type="text" placeholder="Description" [(ngModel)]="event.description"></ion-textarea>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating" color="secondary"><strong>Time of Event</strong></ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Start</ion-label>
-        <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm"
-          pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime">
-        </ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>End</ion-label>
-        <ion-datetime placeholder="Year/Month/Day/Hour/minute" displayFormat="YYYY/MMM/DD/HH:mm"
-          pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime">
-        </ion-datetime>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating" color="secondary"><strong>Color of Event</strong></ion-label>
-      </ion-item>
-      <ion-radio-group name="radio-group" [(ngModel)]="type">
-        <ion-item *ngFor="let item of radio_list">
-          <ion-text color="{{item.color}}">{{item.text}}</ion-text>
-          <ion-radio slot="end" color="{{item.color}}" value="{{item.value}}" checked="{{item.checked}}"
-            disabled="{{item.disabled}}">
-          </ion-radio>
+        <ion-item>
+          <ion-label>Name</ion-label>
+          <ion-input type="text" placeholder="Event Name" [(ngModel)]="event.name"></ion-input>
         </ion-item>
-      </ion-radio-group>
+        <ion-item>
+          <ion-label>Location</ion-label>
+          <ion-input type="text" placeholder="Location" [(ngModel)]="event.location"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-textarea type="text" placeholder="Description" [(ngModel)]="event.description"></ion-textarea>
+        </ion-item>
 
-      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Create
-      </ion-button>
+        <ion-item>
+          <ion-label position="floating" color="secondary"><strong>Time of Event</strong></ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Start</ion-label>
+          <ion-datetime placeholder="Month/Day/Hour/minute" displayFormat="MMM/DD/HH:mm" pickerFormat="MMM/DD/HH:mm"
+            [(ngModel)]="event.startTime">
+          </ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>End</ion-label>
+          <ion-datetime placeholder="Month/Day/Hour/minute" displayFormat="MMM/DD/HH:mm" pickerFormat="MMM/DD/HH:mm"
+            [(ngModel)]="event.endTime">
+          </ion-datetime>
+        </ion-item>
 
-    </ion-card-content>
+        <ion-item>
+          <ion-label position="floating" color="secondary"><strong>Color of Event</strong></ion-label>
+        </ion-item>
+        <ion-radio-group name="radio-group" [(ngModel)]="event.color">
+          <ion-item *ngFor="let item of radio_list">
+            <ion-text color="{{item.color}}">{{item.text}}</ion-text>
+            <ion-radio slot="end" color="{{item.color}}" value="{{item.value}}" checked="{{item.checked}}"
+              disabled="{{item.disabled}}">
+            </ion-radio>
+          </ion-item>
+        </ion-radio-group>
+
+        <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Create
+        </ion-button>
+
+      </ion-card-content>
+    </div>
+
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-list>
+          <ion-item>
+          <ion-label>Name</ion-label>
+          <ion-input type="text" placeholder="Event Name" [(ngModel)]="event.EditName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Location</ion-label>
+          <ion-input type="text" placeholder="Location" [(ngModel)]="event.EditLocation"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-textarea type="text" placeholder="Description" [(ngModel)]="event.EditDescription"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" color="secondary"><strong>Time of Event</strong></ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Start</ion-label>
+          <ion-datetime placeholder="Month/Day/Hour/minute" displayFormat="MMM/DD/HH:mm" pickerFormat="MMM/DD/HH:mm"
+            [(ngModel)]="event.EditStart">
+          </ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>End</ion-label>
+          <ion-datetime placeholder="Month/Day/Hour/minute" displayFormat="MMM/DD/HH:mm" pickerFormat="MMM/DD/HH:mm"
+            [(ngModel)]="event.EditEnd">
+          </ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" color="secondary"><strong>Color of Event</strong></ion-label>
+        </ion-item>
+        <ion-radio-group name="radio-group" [(ngModel)]="event.EditColor">
+          <ion-item *ngFor="let item of radio_list">
+            <ion-text color="{{item.color}}">{{item.text}}</ion-text>
+            <ion-radio slot="end" color="{{item.color}}" value="{{item.value}}" checked="{{item.checked}}"
+              disabled="{{item.disabled}}">
+            </ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+
+      <ion-card-content>
+        <ion-col>
+          <ion-button fill="outline" color="dark" size="small" (click)="event.isEdit = false">
+            Back
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button fill="outline" color="success" size="small" (click)="EditPersonalEvent(event)">
+            Update
+          </ion-button>
+        </ion-col>
+      </ion-card-content>
+    </ng-template>
+
   </ion-card>
 
   <ion-row>
-      <ion-col size="4">
-        <ion-button fill="outline" expand="block" size="small"
-          [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Month</ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button fill="outline" expand="block" size="small" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'"
-          (click)="changeMode('week')">Week</ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button fill="outline" expand="block" size="small" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'"
-          (click)="changeMode('day')">
-          Day</ion-button>
-      </ion-col>
-    </ion-row>
-  
+    <ion-col size="4">
+      <ion-button fill="outline" expand="block" size="small"
+        [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Month</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="outline" expand="block" size="small" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'"
+        (click)="changeMode('week')">Week</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="outline" expand="block" size="small" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'"
+        (click)="changeMode('day')">
+        Day</ion-button>
+    </ion-col>
+  </ion-row>
 
   <ion-row>
     <ion-col size="2" text-left>
@@ -86,8 +157,8 @@
     </ion-col>
 
     <ion-col text-align>
-        {{viewTitle}}
-      </ion-col>
+      {{viewTitle}}
+    </ion-col>
 
     <ion-col size="2" text-right>
       <ion-button fill="clear" (click)="next()">
@@ -97,8 +168,8 @@
   </ion-row>
 
   <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
-    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
-    (onTimeSelected)="onTimeSelected($event)" startHour="6" endHour="20" step="30" startingDayWeek="1">
+    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" startHour="1" endHour="25"
+    step="30" startingDayWeek="1">
   </calendar>
-
+ 
 </ion-content>

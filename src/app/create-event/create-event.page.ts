@@ -32,8 +32,6 @@ export class CreateEventPage implements OnInit {
     private router: Router) {
   }
   
-
-
   ngOnInit() {
  
   }

@@ -113,8 +113,8 @@ export class ViewEventPage implements OnInit {
       }
     })
 
-
   }
+  
   Detail(click) {
     click.isDetail = true;
   }
@@ -137,7 +137,6 @@ export class ViewEventPage implements OnInit {
         }
       ]
     });
-
     await alert.present();
     return promise;
   }

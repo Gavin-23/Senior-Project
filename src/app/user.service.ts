@@ -50,6 +50,10 @@ export class UserService {
 		this.userId = firebase.auth().currentUser.uid;
 		return this.firestore.collection('Event').snapshotChanges();
 	}
+	read_Personal() {
+		this.userId = firebase.auth().currentUser.uid;
+		return this.firestore.collection('Personal Event').snapshotChanges();
+	}
 
 	update_Event(recordID, record) {
 		this.userId = firebase.auth().currentUser.uid;
@@ -66,6 +70,17 @@ export class UserService {
 	}
 
 	create_PersonalEvent(record) {
-		this.firestore.doc('Students/' + record).collection('Personal Event').add(record);
+		return this.firestore.collection('Personal Event').add(record);	
 	}
+
+	update_PersonalEvent(recordID, record) {
+		this.userId = firebase.auth().currentUser.uid;
+		this.firestore.doc('Personal Event/' + recordID).update(record);
+	}
+
+	delete_PersonalEvent(record_id) {
+		this.userId = firebase.auth().currentUser.uid;
+		this.firestore.doc('Personal Event/' + record_id).delete();
+	}
+	
 }
