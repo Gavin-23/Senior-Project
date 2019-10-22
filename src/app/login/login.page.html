@@ -1,15 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title center text-center>
-      CSLA
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content center text-center>
-
-  <ion-button shape="round" href="/student-login" expand="full" class="button-student" color="white">STUDENT
+  <ion-button shape="round" href="/student-login" expand="full" class="button-student" color="white">
+    {{ 'STUDENT' | translate }}
   </ion-button>
-  <ion-button shape="round" href="/staff-login" expand="full" class="button-staff" color="white"> ADMINISTRATOR
+  <ion-button shape="round" href="/staff-login" expand="full" class="button-staff" color="white">
+    {{ 'ADMINISTRATOR' | translate }}
   </ion-button>
 </ion-content>
+
+<ion-item>
+  <ion-label>Select Language</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+    <ion-select-option value="en">English</ion-select-option>
+    <ion-select-option value="cn">Chinese</ion-select-option>
+  </ion-select>
+</ion-item>

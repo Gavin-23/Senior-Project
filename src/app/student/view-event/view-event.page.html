@@ -26,19 +26,21 @@
             <ion-icon size="small" slot="icon-only" name="ios-add-circle-outline"></ion-icon>
           </ion-button> -->
 
-        <ion-button *ngIf="checkStatus(item)" fill="outline" color="primary" size="small" item-right (click)="FollowEvent(item)">
+        <ion-button *ngIf="checkStatus(item)" fill="outline" color="primary" size="small" item-right
+          (click)="FollowEvent(item)">
           Follow
           <ion-icon slot="end" name="ios-add-circle-outline"></ion-icon>
         </ion-button>
 
-        <ion-button *ngIf="!checkStatus(item)" fill="outline" color="primary" size="small" item-right (click)="UnfollowEvent(item)">
+        <ion-button *ngIf="!checkStatus(item)" fill="outline" color="primary" size="small" item-right
+          (click)="UnfollowEvent(item)">
           Unfollow
           <ion-icon slot="end" name="ios-remove-circle-outline"></ion-icon>
         </ion-button>
 
         <ion-button fill="outline" color="warning" size="small" item-right (click)="Detail(item)">
           Detail
-          <ion-icon  size="small" slot="end" name="ios-more" ></ion-icon>
+          <ion-icon size="small" slot="end" name="ios-more"></ion-icon>
         </ion-button>
       </ion-card-content>
     </div>
@@ -50,18 +52,32 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                Detail
-                <ion-card-subtitle>Location:{{item.Localtion}}</ion-card-subtitle>
-                <ion-card-subtitle>Time: {{item.Time | date:'medium'}}</ion-card-subtitle>
-                <ion-card-subtitle>Scope: {{item.Scope}}</ion-card-subtitle>
-                <ion-card-subtitle>Type: {{item.Type}}</ion-card-subtitle>
-                <ion-card-subtitle>Description:</ion-card-subtitle>
-                <ion-card-content>{{item.Desc}}</ion-card-content>
+                {{item.Name}}
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-title>
       </ion-card-header>
+      <ion-list>
+        <ion-item>
+          <ion-card-subtitle>Location:{{item.Localtion}}</ion-card-subtitle>
+        </ion-item>
+        <ion-item>
+          <ion-card-subtitle>Time: {{item.Time | date:'medium'}}</ion-card-subtitle>
+        </ion-item>
+        <ion-item>
+          <ion-card-subtitle>Scope: {{item.Scope}}</ion-card-subtitle>
+        </ion-item>
+        <ion-item>
+          <ion-card-subtitle>Type: {{item.Type}}</ion-card-subtitle>
+        </ion-item>
+        <ion-item>
+          <ion-card-subtitle>Description:</ion-card-subtitle>
+          <ion-card-content>{{item.Desc}}</ion-card-content>
+        </ion-item>
+      </ion-list>
+
+
 
       <ion-card-content>
         <ion-col>

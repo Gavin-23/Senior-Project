@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateConfigService } from '../translate-config.service';
 
 @Component({
   selector: 'app-login',
@@ -6,8 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  selectedLanguage:string;
 
-  constructor() { }
+  constructor(private translateConfigService: TranslateConfigService){
+    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+  }
+
+  languageChanged(){
+    this.translateConfigService.setLanguage(this.selectedLanguage);
+  }
 
   ngOnInit() {
   }

@@ -14,7 +14,6 @@
         <ion-card-title>New Event</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="collapseCard">
-
         <ion-item>
           <ion-label>Name</ion-label>
           <ion-input type="text" placeholder="Event Name" [(ngModel)]="event.name"></ion-input>
@@ -56,9 +55,10 @@
           </ion-item>
         </ion-radio-group>
 
-        <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Create
+        <ion-button fill="outline" expand="block" color="success" (click)="addEvent()" [disabled]="event.title == ''">Create
         </ion-button>
-
+        <ion-button fill="outline" expand="block" color="warning" (click)="collapseCard = !collapseCard">Cancel
+        </ion-button>
       </ion-card-content>
     </div>
 
@@ -75,7 +75,7 @@
         </ion-card-title>
       </ion-card-header>
       <ion-list>
-          <ion-item>
+        <ion-item>
           <ion-label>Name</ion-label>
           <ion-input type="text" placeholder="Event Name" [(ngModel)]="event.EditName"></ion-input>
         </ion-item>
@@ -171,5 +171,5 @@
     (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" startHour="1" endHour="25"
     step="30" startingDayWeek="1">
   </calendar>
- 
+
 </ion-content>

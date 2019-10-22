@@ -13,18 +13,23 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { UserService } from './user.service';
-import { HttpModule } from '@angular/http'
+import { HttpModule, Http } from '@angular/http'
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage'
-import { from } from 'rxjs';
 import { NgCalendarModule } from 'ionic2-calendar';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
+export function LanguageLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(), 
+    IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireAuthModule,
@@ -32,7 +37,16 @@ import { NgCalendarModule } from 'ionic2-calendar';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     NgCalendarModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule,
+    TranslateModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (LanguageLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     StatusBar,
@@ -42,4 +56,5 @@ import { NgCalendarModule } from 'ionic2-calendar';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
+

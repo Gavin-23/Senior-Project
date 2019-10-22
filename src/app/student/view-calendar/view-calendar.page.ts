@@ -98,18 +98,21 @@ export class ViewCalendarPage implements OnInit {
   ngOnInit() {
     this.user.read_Personal().subscribe(data => {
       this.eventSource = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          title: e.payload.doc.data()['Name'],
-          isEdit: false,
-          Name: e.payload.doc.data()['Name'],
-          Desc: e.payload.doc.data()['Description'],
-          Localtion: e.payload.doc.data()['Location'],
-          startTime: e.payload.doc.data()['StartTime'].toDate(),
-          endTime: e.payload.doc.data()['EndTime'].toDate(),
-          Color: e.payload.doc.data()['Color'],
-        };
-
+        console.log(e.payload.doc.data()['UID'])
+        console.log(e.payload.doc.data()['UID'])
+          return {
+            isCurrentUser: false,
+            id: e.payload.doc.id,
+            title: e.payload.doc.data()['Name'],
+            isEdit: false,
+            Name: e.payload.doc.data()['Name'],
+            Desc: e.payload.doc.data()['Description'],
+            Localtion: e.payload.doc.data()['Location'],
+            startTime: e.payload.doc.data()['StartTime'].toDate(),
+            endTime: e.payload.doc.data()['EndTime'].toDate(),
+            Color: e.payload.doc.data()['Color'],
+          };
+        
       })
       console.log("read event successfully!");
 
