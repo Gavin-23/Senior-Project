@@ -7,15 +7,15 @@ import { TranslateConfigService } from '../translate-config.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  selectedLanguage:string;
+  // selectedLanguage:string;
 
-  constructor(private translateConfigService: TranslateConfigService){
-    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
-  }
+  // constructor(private translateConfigService: TranslateConfigService){
+  //   this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+  // }
 
-  languageChanged(){
-    this.translateConfigService.setLanguage(this.selectedLanguage);
-  }
+  // languageChanged(){
+  //   this.translateConfigService.setLanguage(this.selectedLanguage);
+  // }
 
   ngOnInit() {
   }
