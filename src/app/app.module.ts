@@ -20,12 +20,13 @@ import { NgCalendarModule } from 'ionic2-calendar';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { RedirectComponent } from './redirect/redirect.component';
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, RedirectComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

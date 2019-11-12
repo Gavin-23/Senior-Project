@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateConfigService } from '../translate-config.service';
+import { ApiService } from '../itsc/api.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,14 @@ export class LoginPage implements OnInit {
   //   this.translateConfigService.setLanguage(this.selectedLanguage);
   // }
 
+
+  constructor(public itsc: ApiService) {}
+   
   ngOnInit() {
+  }
+
+  studentLogin() {
+    this.itsc.signIn();
   }
 
 }
