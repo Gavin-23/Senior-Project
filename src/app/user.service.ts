@@ -86,5 +86,9 @@ export class UserService {
 	read_Student() {
 		return this.firestore.collection('Students').snapshotChanges();
 	}
+
+	read_Lecturer() {
+		return this.firestore.collection('Lecturer').snapshotChanges();
+	}
 	
 }

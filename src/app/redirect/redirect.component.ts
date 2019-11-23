@@ -21,7 +21,8 @@ export class RedirectComponent implements CanActivate, OnInit {
   emailAddress: string = ""
   userId: string;
   studentId: string;
-  event: any;
+  students: any;
+  lecturer: any;
   password: string = "";
 
   constructor(private router: Router,
@@ -38,16 +39,26 @@ export class RedirectComponent implements CanActivate, OnInit {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     this.user.read_Student().subscribe(data => {
-      this.event = data.map(e => {
+      this.students = data.map(e => {
         return {
           id: e.payload.doc.id,
           StudentId: e.payload.doc.data()['studentId'],
           Account: e.payload.doc.data()['emailAddress']
         };
       })
-      console.log(this.event);
+      console.log(this.students);
     });
-    
+
+    this.user.read_Lecturer().subscribe(data => {
+      this.lecturer = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          Account: e.payload.doc.data()['emailAddress']
+        };
+      })
+      console.log(this.lecturer);
+    });
+
     if (state.url === '/sign-in') {
       window.location.href = (next.data as any).externalUrl;
     } else if (state.root.queryParams.code) {
@@ -91,21 +102,26 @@ export class RedirectComponent implements CanActivate, OnInit {
             'Accept': 'application/json',
             'Access-Control-Allow-Headers': 'Content-Type',
           })
-
         }).subscribe(
-        
           info => {
-            console.log(this.event.Accoun)
-            for(let user of this.event){
-              if(user.Account != info.cmuitaccount){
-                this.register(info.cmuitaccount,info.student_id)
+            console.log(info.itaccounttype_id)
+            if (info.itaccounttype_id == 'StdAcc') {
+              for (let user of this.students) {
+                if (user.Account != info.cmuitaccount) {
+                  this.studentRegister(info.cmuitaccount, info.student_id)
+                }
+              }
+            } else if (info.itaccounttype_id == 'MISEmpAcc'){
+              for (let user of this.lecturer) {
+                if (user.Account != info.cmuitaccount) {
+                  this.lecturerRegister(info.cmuitaccount)
+                }
               }
             }
-           
-            console.log('success', info)
+
+              console.log('success', info)
           },
           error => console.log('oops', error)
-
         )
         // console.log(this.event)
         this.router.navigate(['/student-tabs/view-event'])
@@ -118,7 +134,7 @@ export class RedirectComponent implements CanActivate, OnInit {
     return true;
   }
 
-  async register(emailAddress,studentId) {
+  async studentRegister(emailAddress, studentId) {
     try {
       let password = "123456"
       const res = await this.afAuth.auth.createUserWithEmailAndPassword(emailAddress, password)
@@ -126,6 +142,25 @@ export class RedirectComponent implements CanActivate, OnInit {
       this.afstore.doc(`Students/${res.user.uid}`).set({
         emailAddress,
         studentId
+      })
+
+      this.user.setUser({
+        emailAddress,
+        uid: res.user.uid,
+      })
+
+    } catch (error) {
+      console.dir(error)
+    }
+  }
+
+  async lecturerRegister(emailAddress) {
+    try {
+      let password = "123456"
+      const res = await this.afAuth.auth.createUserWithEmailAndPassword(emailAddress, password)
+
+      this.afstore.doc(`Students/${res.user.uid}`).set({
+        emailAddress,
       })
 
       this.user.setUser({
