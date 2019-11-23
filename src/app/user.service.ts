@@ -82,5 +82,9 @@ export class UserService {
 		this.userId = firebase.auth().currentUser.uid;
 		this.firestore.doc('Personal Event/' + record_id).delete();
 	}
+
+	read_Student() {
+		return this.firestore.collection('Students').snapshotChanges();
+	}
 	
 }

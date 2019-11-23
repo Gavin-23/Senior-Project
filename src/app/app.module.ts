@@ -40,7 +40,6 @@ export function LanguageLoader(http: HttpClient) {
     NgCalendarModule,
     HttpModule,
     HttpClientModule,
-    TranslateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
