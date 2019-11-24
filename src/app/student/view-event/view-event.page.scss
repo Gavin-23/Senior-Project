@@ -10,3 +10,13 @@
   border: 2px solid #ffce00;
   border-radius: 8px;
 }
+
+ion-content.background {
+  --background: #d78c42 no-repeat center center fixed;
+  background-size: cover;
+}
+
+ion-card.background {
+  --background: #ffffff no-repeat center center fixed;
+  background-size: cover;
+}

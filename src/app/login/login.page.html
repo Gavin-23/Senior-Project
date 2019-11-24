@@ -1,8 +1,13 @@
-<ion-content center text-center>
-  <ion-button shape="round"  expand="full" class="button-student" color="white" (click)="studentLogin()">
+
+<ion-content class="background" center text-center>
+<h1 class="title" size="large">CSLA</h1>
+
+<h2 class="subtitle" size="large">CAMT Study Life Assistant</h2>
+<!-- <img *ngIf="imageUrl" [src]="imageUrl"> -->
+  <ion-button  expand="full" class="button-student" color="white" (click)="studentLogin()">
     {{ 'STUDENT' | translate }}
   </ion-button>
-  <ion-button shape="round"  expand="full" class="button-staff" color="white" (click)="studentLogin()">
+  <ion-button  expand="full" class="button-staff" color="white" (click)="studentLogin()">
     {{ 'ADMINISTRATOR' | translate }}
   </ion-button>
 </ion-content>

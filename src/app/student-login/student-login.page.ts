@@ -27,7 +27,7 @@ export class StudentLoginPage implements OnInit {
   async login() {
     const { emailAddress, password, } = this;
     try {
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th", password)
+      const res = await this.afAuth.auth.signInWithEmailAndPassword(emailAddress, password)
       this.router.navigate(['/student-tabs'])
       return console.log("Successful!")
 

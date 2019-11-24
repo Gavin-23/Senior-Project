@@ -11,7 +11,7 @@
   <ion-card>
     <div *ngIf="!event.isEdit; else elseBlock">
       <ion-card-header tappable (click)="collapseCard = !collapseCard">
-        <ion-card-title>New Event</ion-card-title>
+        <ion-card-title color="primary">New Event</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="collapseCard">
         <ion-item>

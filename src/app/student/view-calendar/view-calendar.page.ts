@@ -100,7 +100,7 @@ export class ViewCalendarPage implements OnInit {
       this.eventSource = data.map(e => {
         console.log(e.payload.doc.data()['UID']);
         console.log(firebase.auth().currentUser.uid);
-        if (e.payload.doc.data()['UID'] == firebase.auth().currentUser.uid) {
+        // if (e.payload.doc.data()['UID'] == firebase.auth().currentUser.uid) {
           return {
             isCurrentUser: false,
             id: e.payload.doc.id,
@@ -113,15 +113,15 @@ export class ViewCalendarPage implements OnInit {
             endTime: e.payload.doc.data()['EndTime'].toDate(),
             Color: e.payload.doc.data()['Color'],
           };
-        } else {
-          return {
-            isCurrentUser: true,
-            id: '',
-            title: '',
-            startTime: '',
-            endTime: '',
-          }
-        }
+        // } else {
+        //   return {
+        //     isCurrentUser: true,
+        //     id: '',
+        //     title: '',
+        //     startTime: '',
+        //     endTime: '',
+        //   }
+        // }
       })
       console.log("read event successfully!");
 

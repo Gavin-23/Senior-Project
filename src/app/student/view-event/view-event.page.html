@@ -6,11 +6,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-card *ngFor="let item of event">
+<ion-content padding class="background">
+  <ion-card *ngFor="let item of event" class="background">
     <div *ngIf="!item.isDetail; else elseBlock">
       <ion-card-header>
-        <ion-card-title color="secondary">{{item.Name}}</ion-card-title>
+        <ion-card-title color="primary">{{item.Name}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <!-- <ion-button fill="outline" color="primary" size="small" (click)="EditRecord(item)">
@@ -51,7 +51,7 @@
         <ion-card-title>
           <ion-grid>
             <ion-row>
-              <ion-col>
+              <ion-col color="primary">
                 {{item.Name}}
               </ion-col>
             </ion-row>

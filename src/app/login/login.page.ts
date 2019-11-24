@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
   //   this.translateConfigService.setLanguage(this.selectedLanguage);
   // }
 
+  imageUrl : "../../assets/logo.jpeg";
 
   constructor(public itsc: ApiService) {}
    
