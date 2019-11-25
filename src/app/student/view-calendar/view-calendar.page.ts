@@ -1,10 +1,11 @@
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar'
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { UserService } from 'src/app/user.service';
 import { Router } from '@angular/router';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-view-calendar',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-calendar.page.scss'],
 })
 export class ViewCalendarPage implements OnInit {
+  scheduled = [];
   selectedDate = new Date().toISOString();
   userId: string;
   events: any;
@@ -89,10 +91,24 @@ export class ViewCalendarPage implements OnInit {
     public navCtrl: NavController,
     public user: UserService,
     private alertController: AlertController,
-    private router: Router
-
+    private router: Router,
+    private localNotifications: LocalNotifications,
+    private plt: Platform
   ) {
     this.userId = firebase.auth().currentUser.uid;
+
+    this.plt.ready().then(() => {
+      this.localNotifications.on('click').subscribe(res => {
+        console.log('click: ', res);
+        let msg = res.data ? res.data.mydata : '';
+        this.showAlert(res.title,res.text);
+      });
+      this.localNotifications.on('trigger').subscribe(res => {
+        console.log('trigger: ', res);
+        let msg = res.data ? res.data.mydata : '';
+        this.showAlert(res.title,res.text);
+      });
+    });
   }
 
   ngOnInit() {
@@ -101,18 +117,18 @@ export class ViewCalendarPage implements OnInit {
         console.log(e.payload.doc.data()['UID']);
         console.log(firebase.auth().currentUser.uid);
         // if (e.payload.doc.data()['UID'] == firebase.auth().currentUser.uid) {
-          return {
-            isCurrentUser: false,
-            id: e.payload.doc.id,
-            title: e.payload.doc.data()['Name'],
-            isEdit: false,
-            Name: e.payload.doc.data()['Name'],
-            Desc: e.payload.doc.data()['Description'],
-            Localtion: e.payload.doc.data()['Location'],
-            startTime: e.payload.doc.data()['StartTime'].toDate(),
-            endTime: e.payload.doc.data()['EndTime'].toDate(),
-            Color: e.payload.doc.data()['Color'],
-          };
+        return {
+          isCurrentUser: false,
+          id: e.payload.doc.id,
+          title: e.payload.doc.data()['Name'],
+          isEdit: false,
+          Name: e.payload.doc.data()['Name'],
+          Desc: e.payload.doc.data()['Description'],
+          Localtion: e.payload.doc.data()['Location'],
+          startTime: e.payload.doc.data()['StartTime'].toDate(),
+          endTime: e.payload.doc.data()['EndTime'].toDate(),
+          Color: e.payload.doc.data()['Color'],
+        };
         // } else {
         //   return {
         //     isCurrentUser: true,
@@ -355,4 +371,41 @@ export class ViewCalendarPage implements OnInit {
   //   selected.setHours(selected.getHours() + 1);
   //   this.event.endTime = (selected.toISOString());
   // }
+
+  scheduleNotification() {
+    this.localNotifications.schedule({
+      id:1,
+      title: 'Attention',
+      text: 'Zihao Yu',
+      data: { mydata: 'dcdscsdfcsd'},
+      trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND}
+    });
+
+  }
+
+  recurringNotification() {
+    this.localNotifications.schedule({
+      id:22,
+      title: 'Attention',
+      text: 'Zihao Yu',
+      trigger: {every: ELocalNotificationTriggerUnit.MINUTE}
+    });
+  }
+
+  repeatingDaily() {
+    this.localNotifications.schedule({
+      id:42,
+      title: 'Attention',
+      text: ' Zeng qi',
+      trigger: {every: { hour:0, minute:2}}
+    });
+
+  }
+
+  getAll() {
+    this.localNotifications.getAll().then(res =>{
+      this.scheduled = res;
+    });
+  }
+
 }

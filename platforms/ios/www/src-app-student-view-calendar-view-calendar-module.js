@@ -61,7 +61,7 @@ var ViewCalendarPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Calendar</ion-title>\n    <!-- <ion-buttons fill=\"outline\" (click)=\"today()\">Today</ion-buttons> -->\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- Card for adding a new event -->\n  <ion-card>\n    <div *ngIf=\"!event.isEdit; else elseBlock\">\n      <ion-card-header tappable (click)=\"collapseCard = !collapseCard\">\n        <ion-card-title>New Event</ion-card-title>\n      </ion-card-header>\n      <ion-card-content *ngIf=\"collapseCard\">\n        <ion-item>\n          <ion-label>Name</ion-label>\n          <ion-input type=\"text\" placeholder=\"Event Name\" [(ngModel)]=\"event.name\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Location</ion-label>\n          <ion-input type=\"text\" placeholder=\"Location\" [(ngModel)]=\"event.location\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Description</ion-label>\n          <ion-textarea type=\"text\" placeholder=\"Description\" [(ngModel)]=\"event.description\"></ion-textarea>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Time of Event</strong></ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Start</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.startTime\">\n          </ion-datetime>\n        </ion-item>\n        <ion-item>\n          <ion-label>End</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.endTime\">\n          </ion-datetime>\n        </ion-item>\n\n        <!-- <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Color of Event</strong></ion-label>\n        </ion-item>\n        <ion-radio-group name=\"radio-group\" [(ngModel)]=\"event.color\">\n          <ion-item *ngFor=\"let item of radio_list\">\n            <ion-text color=\"{{item.color}}\">{{item.text}}</ion-text>\n            <ion-radio slot=\"end\" color=\"{{item.color}}\" value=\"{{item.value}}\" checked=\"{{item.checked}}\"\n              disabled=\"{{item.disabled}}\">\n            </ion-radio>\n          </ion-item>\n        </ion-radio-group> -->\n\n        <ion-button fill=\"outline\" expand=\"block\" color=\"success\" (click)=\"addEvent()\" [disabled]=\"event.title == ''\">Create\n        </ion-button>\n        <ion-button fill=\"outline\" expand=\"block\" color=\"warning\" (click)=\"collapseCard = !collapseCard\">Cancel\n        </ion-button>\n      </ion-card-content>\n    </div>\n\n    <ng-template #elseBlock>\n      <ion-card-header>\n        <ion-card-title>\n          <ion-grid>\n            <ion-row>\n              <ion-col>\n                Edit\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n        </ion-card-title>\n      </ion-card-header>\n      <ion-list>\n        <ion-item>\n          <ion-label>Name</ion-label>\n          <ion-input type=\"text\" placeholder=\"Event Name\" [(ngModel)]=\"event.EditName\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Location</ion-label>\n          <ion-input type=\"text\" placeholder=\"Location\" [(ngModel)]=\"event.EditLocation\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Description</ion-label>\n          <ion-textarea type=\"text\" placeholder=\"Description\" [(ngModel)]=\"event.EditDescription\"></ion-textarea>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Time of Event</strong></ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Start</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.EditStart\">\n          </ion-datetime>\n        </ion-item>\n        <ion-item>\n          <ion-label>End</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.EditEnd\">\n          </ion-datetime>\n        </ion-item>\n\n        <!-- <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Color of Event</strong></ion-label>\n        </ion-item>\n        <ion-radio-group name=\"radio-group\" [(ngModel)]=\"event.EditColor\">\n          <ion-item *ngFor=\"let item of radio_list\">\n            <ion-text color=\"{{item.color}}\">{{item.text}}</ion-text>\n            <ion-radio slot=\"end\" color=\"{{item.color}}\" value=\"{{item.value}}\" checked=\"{{item.checked}}\"\n              disabled=\"{{item.disabled}}\">\n            </ion-radio>\n          </ion-item>\n        </ion-radio-group> -->\n        \n      </ion-list>\n\n      <ion-card-content>\n        <ion-col>\n          <ion-button fill=\"outline\" color=\"dark\" size=\"small\" (click)=\"event.isEdit = false\">\n            Back\n          </ion-button>\n        </ion-col>\n        <ion-col>\n          <ion-button fill=\"outline\" color=\"success\" size=\"small\" (click)=\"EditPersonalEvent(event)\">\n            Update\n          </ion-button>\n        </ion-col>\n      </ion-card-content>\n    </ng-template>\n\n  </ion-card>\n\n  <ion-row>\n    <ion-col size=\"4\">\n      <ion-button fill=\"outline\" expand=\"block\" size=\"small\"\n        [color]=\"calendar.mode == 'month' ? 'primary' : 'secondary'\" (click)=\"changeMode('month')\">Month</ion-button>\n    </ion-col>\n    <ion-col size=\"4\">\n      <ion-button fill=\"outline\" expand=\"block\" size=\"small\" [color]=\"calendar.mode == 'week' ? 'primary' : 'secondary'\"\n        (click)=\"changeMode('week')\">Week</ion-button>\n    </ion-col>\n    <ion-col size=\"4\">\n      <ion-button fill=\"outline\" expand=\"block\" size=\"small\" [color]=\"calendar.mode == 'day' ? 'primary' : 'secondary'\"\n        (click)=\"changeMode('day')\">\n        Day</ion-button>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col size=\"2\" text-left>\n      <ion-button fill=\"clear\" (click)=\"back()\">\n        <ion-icon name=\"arrow-back\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-col>\n\n    <ion-col text-align>\n      {{viewTitle}}\n    </ion-col>\n\n    <ion-col size=\"2\" text-right>\n      <ion-button fill=\"clear\" (click)=\"next()\">\n        <ion-icon name=\"arrow-forward\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <calendar [eventSource]=\"eventSource\" [calendarMode]=\"calendar.mode\" [currentDate]=\"calendar.currentDate\"\n    (onEventSelected)=\"onEventSelected($event)\" (onTitleChanged)=\"onViewTitleChanged($event)\" startHour=\"1\" endHour=\"25\"\n    step=\"30\" startingDayWeek=\"1\">\n  </calendar>\n\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Calendar</ion-title>\n    <!-- <ion-buttons fill=\"outline\" (click)=\"today()\">Today</ion-buttons> -->\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- Card for adding a new event -->\n  <ion-card>\n    <div *ngIf=\"!event.isEdit; else elseBlock\">\n      <ion-card-header tappable (click)=\"collapseCard = !collapseCard\">\n        <ion-card-title color=\"primary\">New Event</ion-card-title>\n      </ion-card-header>\n      <ion-card-content *ngIf=\"collapseCard\">\n        <ion-item>\n          <ion-label>Name</ion-label>\n          <ion-input type=\"text\" placeholder=\"Event Name\" [(ngModel)]=\"event.name\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Location</ion-label>\n          <ion-input type=\"text\" placeholder=\"Location\" [(ngModel)]=\"event.location\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Description</ion-label>\n          <ion-textarea type=\"text\" placeholder=\"Description\" [(ngModel)]=\"event.description\"></ion-textarea>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Time of Event</strong></ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Start</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.startTime\">\n          </ion-datetime>\n        </ion-item>\n        <ion-item>\n          <ion-label>End</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.endTime\">\n          </ion-datetime>\n        </ion-item>\n\n        <!-- <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Color of Event</strong></ion-label>\n        </ion-item>\n        <ion-radio-group name=\"radio-group\" [(ngModel)]=\"event.color\">\n          <ion-item *ngFor=\"let item of radio_list\">\n            <ion-text color=\"{{item.color}}\">{{item.text}}</ion-text>\n            <ion-radio slot=\"end\" color=\"{{item.color}}\" value=\"{{item.value}}\" checked=\"{{item.checked}}\"\n              disabled=\"{{item.disabled}}\">\n            </ion-radio>\n          </ion-item>\n        </ion-radio-group> -->\n\n        <ion-button fill=\"outline\" expand=\"block\" color=\"success\" (click)=\"addEvent()\" [disabled]=\"event.title == ''\">\n          Create\n        </ion-button>\n        <ion-button fill=\"outline\" expand=\"block\" color=\"warning\" (click)=\"collapseCard = !collapseCard\">Cancel\n        </ion-button>\n      </ion-card-content>\n    </div>\n\n    <ng-template #elseBlock>\n      <ion-card-header>\n        <ion-card-title>\n          <ion-grid>\n            <ion-row>\n              <ion-col>\n                Edit\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n        </ion-card-title>\n      </ion-card-header>\n      <ion-list>\n        <ion-item>\n          <ion-label>Name</ion-label>\n          <ion-input type=\"text\" placeholder=\"Event Name\" [(ngModel)]=\"event.EditName\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Location</ion-label>\n          <ion-input type=\"text\" placeholder=\"Location\" [(ngModel)]=\"event.EditLocation\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Description</ion-label>\n          <ion-textarea type=\"text\" placeholder=\"Description\" [(ngModel)]=\"event.EditDescription\"></ion-textarea>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Time of Event</strong></ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Start</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.EditStart\">\n          </ion-datetime>\n        </ion-item>\n        <ion-item>\n          <ion-label>End</ion-label>\n          <ion-datetime placeholder=\"Month/Day/Hour/minute\" displayFormat=\"MMM/DD/HH:mm\" pickerFormat=\"MMM/DD/HH:mm\"\n            [(ngModel)]=\"event.EditEnd\">\n          </ion-datetime>\n        </ion-item>\n\n        <!-- <ion-item>\n          <ion-label position=\"floating\" color=\"secondary\"><strong>Color of Event</strong></ion-label>\n        </ion-item>\n        <ion-radio-group name=\"radio-group\" [(ngModel)]=\"event.EditColor\">\n          <ion-item *ngFor=\"let item of radio_list\">\n            <ion-text color=\"{{item.color}}\">{{item.text}}</ion-text>\n            <ion-radio slot=\"end\" color=\"{{item.color}}\" value=\"{{item.value}}\" checked=\"{{item.checked}}\"\n              disabled=\"{{item.disabled}}\">\n            </ion-radio>\n          </ion-item>\n        </ion-radio-group> -->\n\n      </ion-list>\n\n      <ion-card-content>\n        <ion-col>\n          <ion-button fill=\"outline\" color=\"dark\" size=\"small\" (click)=\"event.isEdit = false\">\n            Back\n          </ion-button>\n        </ion-col>\n        <ion-col>\n          <ion-button fill=\"outline\" color=\"success\" size=\"small\" (click)=\"EditPersonalEvent(event)\">\n            Update\n          </ion-button>\n        </ion-col>\n      </ion-card-content>\n    </ng-template>\n\n  </ion-card>\n\n  <ion-row>\n    <ion-col size=\"4\">\n      <ion-button fill=\"outline\" expand=\"block\" size=\"small\"\n        [color]=\"calendar.mode == 'month' ? 'primary' : 'secondary'\" (click)=\"changeMode('month')\">Month</ion-button>\n    </ion-col>\n    <ion-col size=\"4\">\n      <ion-button fill=\"outline\" expand=\"block\" size=\"small\" [color]=\"calendar.mode == 'week' ? 'primary' : 'secondary'\"\n        (click)=\"changeMode('week')\">Week</ion-button>\n    </ion-col>\n    <ion-col size=\"4\">\n      <ion-button fill=\"outline\" expand=\"block\" size=\"small\" [color]=\"calendar.mode == 'day' ? 'primary' : 'secondary'\"\n        (click)=\"changeMode('day')\">\n        Day</ion-button>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col size=\"2\" text-left>\n      <ion-button fill=\"clear\" (click)=\"back()\">\n        <ion-icon name=\"arrow-back\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-col>\n\n    <ion-col text-align>\n      {{viewTitle}}\n    </ion-col>\n\n    <ion-col size=\"2\" text-right>\n      <ion-button fill=\"clear\" (click)=\"next()\">\n        <ion-icon name=\"arrow-forward\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <calendar [eventSource]=\"eventSource\" [calendarMode]=\"calendar.mode\" [currentDate]=\"calendar.currentDate\"\n    (onEventSelected)=\"onEventSelected($event)\" (onTitleChanged)=\"onViewTitleChanged($event)\" startHour=\"1\" endHour=\"25\"\n    step=\"30\" startingDayWeek=\"1\">\n  </calendar>\n\n  <ion-content padding>\n    <ion-button expand=\"block\" (click)=\"scheduleNotification()\">schedule</ion-button>\n    <ion-button expand=\"block\" (click)=\"recurringNotification()\">schedule</ion-button>\n    <ion-button expand=\"block\" (click)=\"repeatingDaily()\">schedule</ion-button>\n    <ion-button expand=\"block\" (click)=\"getAll()\">schedule</ion-button>\n    \n    <ion-list>\n      <ion-item *ngFor=\"let n of scheduled\">\n        <ion-label text-wrap>\n          {{n.id}} - {{n.title}}\n          <p>Trigger: {{n.trigger | json}}</p>\n        </ion-label>\n      </ion-item>\n    </ion-list>\n\n  </ion-content>\n\n\n\n\n</ion-content>"
 
 /***/ }),
 
@@ -72,7 +72,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Calendar</ion-ti
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".red {\n  background-color: white;\n  color: red;\n  border: 2px solid #835301;\n  border-radius: 8px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hcHBsZS9EZXNrdG9wL1Nlbmlvci1Qcm9qZWN0L3NyYy9hcHAvc3R1ZGVudC92aWV3LWNhbGVuZGFyL3ZpZXctY2FsZW5kYXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUJBQXVCO0VBQ3ZCLFVBQVU7RUFDVix5QkFBeUI7RUFDekIsa0JBQWtCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zdHVkZW50L3ZpZXctY2FsZW5kYXIvdmlldy1jYWxlbmRhci5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVkIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICBjb2xvcjogcmVkO1xuICAgIGJvcmRlcjogMnB4IHNvbGlkICM4MzUzMDE7XG4gICAgYm9yZGVyLXJhZGl1czogOHB4O1xuICB9Il19 */"
+module.exports = ".red {\n  background-color: white;\n  color: red;\n  border: 2px solid #835301;\n  border-radius: 8px; }\n\nion-content.background {\n  --background: #edccab no-repeat center center fixed;\n  background-size: cover; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hcHBsZS9EZXNrdG9wL1Nlbmlvci1Qcm9qZWN0L3NyYy9hcHAvc3R1ZGVudC92aWV3LWNhbGVuZGFyL3ZpZXctY2FsZW5kYXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUJBQXVCO0VBQ3ZCLFVBQVU7RUFDVix5QkFBeUI7RUFDekIsa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UsbURBQWE7RUFDYixzQkFBc0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3N0dWRlbnQvdmlldy1jYWxlbmRhci92aWV3LWNhbGVuZGFyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZWQge1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIGNvbG9yOiByZWQ7XG4gICAgYm9yZGVyOiAycHggc29saWQgIzgzNTMwMTtcbiAgICBib3JkZXItcmFkaXVzOiA4cHg7XG4gIH1cblxuICBpb24tY29udGVudC5iYWNrZ3JvdW5kIHtcbiAgICAtLWJhY2tncm91bmQ6ICNlZGNjYWIgbm8tcmVwZWF0IGNlbnRlciBjZW50ZXIgZml4ZWQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgfVxuICAiXX0= */"
 
 /***/ }),
 
@@ -95,6 +95,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var src_app_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user.service */ "./src/app/user.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
+
 
 
 
@@ -105,13 +107,17 @@ __webpack_require__.r(__webpack_exports__);
 
 var ViewCalendarPage = /** @class */ (function () {
     // userId: string;
-    function ViewCalendarPage(alertCtrl, locale, navCtrl, user, alertController, router) {
+    function ViewCalendarPage(alertCtrl, locale, navCtrl, user, alertController, router, localNotifications, plt) {
+        var _this = this;
         this.alertCtrl = alertCtrl;
         this.locale = locale;
         this.navCtrl = navCtrl;
         this.user = user;
         this.alertController = alertController;
         this.router = router;
+        this.localNotifications = localNotifications;
+        this.plt = plt;
+        this.scheduled = [];
         this.selectedDate = new Date().toISOString();
         this.eventSource = [];
         this.viewTitle = '';
@@ -172,13 +178,26 @@ var ViewCalendarPage = /** @class */ (function () {
             currentDate: new Date()
         };
         this.userId = firebase__WEBPACK_IMPORTED_MODULE_5__["auth"]().currentUser.uid;
+        this.plt.ready().then(function () {
+            _this.localNotifications.on('click').subscribe(function (res) {
+                console.log('click: ', res);
+                var msg = res.data ? res.data.mydata : '';
+                _this.showAlert(res.title, res.text);
+            });
+            _this.localNotifications.on('trigger').subscribe(function (res) {
+                console.log('trigger: ', res);
+                var msg = res.data ? res.data.mydata : '';
+                _this.showAlert(res.title, res.text);
+            });
+        });
     }
     ViewCalendarPage.prototype.ngOnInit = function () {
         var _this = this;
         this.user.read_Personal().subscribe(function (data) {
             _this.eventSource = data.map(function (e) {
                 console.log(e.payload.doc.data()['UID']);
-                console.log(e.payload.doc.data()['UID']);
+                console.log(firebase__WEBPACK_IMPORTED_MODULE_5__["auth"]().currentUser.uid);
+                // if (e.payload.doc.data()['UID'] == firebase.auth().currentUser.uid) {
                 return {
                     isCurrentUser: false,
                     id: e.payload.doc.id,
@@ -191,6 +210,15 @@ var ViewCalendarPage = /** @class */ (function () {
                     endTime: e.payload.doc.data()['EndTime'].toDate(),
                     Color: e.payload.doc.data()['Color'],
                 };
+                // } else {
+                //   return {
+                //     isCurrentUser: true,
+                //     id: '',
+                //     title: '',
+                //     startTime: '',
+                //     endTime: '',
+                //   }
+                // }
             });
             console.log("read event successfully!");
             // console.log(this.events[0].StartTime.getTime());
@@ -425,6 +453,43 @@ var ViewCalendarPage = /** @class */ (function () {
             });
         });
     };
+    // onTimeSelected(ev) {
+    //   let selected = new Date(ev.selectedTime);
+    //   this.event.startTime = selected.toISOString();
+    //   selected.setHours(selected.getHours() + 1);
+    //   this.event.endTime = (selected.toISOString());
+    // }
+    ViewCalendarPage.prototype.scheduleNotification = function () {
+        this.localNotifications.schedule({
+            id: 1,
+            title: 'Attention',
+            text: 'Zihao Yu',
+            data: { mydata: 'dcdscsdfcsd' },
+            trigger: { in: 5, unit: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_8__["ELocalNotificationTriggerUnit"].SECOND }
+        });
+    };
+    ViewCalendarPage.prototype.recurringNotification = function () {
+        this.localNotifications.schedule({
+            id: 22,
+            title: 'Attention',
+            text: 'Zihao Yu',
+            trigger: { every: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_8__["ELocalNotificationTriggerUnit"].MINUTE }
+        });
+    };
+    ViewCalendarPage.prototype.repeatingDaily = function () {
+        this.localNotifications.schedule({
+            id: 42,
+            title: 'Attention',
+            text: ' Zeng qi',
+            trigger: { every: { hour: 0, minute: 2 } }
+        });
+    };
+    ViewCalendarPage.prototype.getAll = function () {
+        var _this = this;
+        this.localNotifications.getAll().then(function (res) {
+            _this.scheduled = res;
+        });
+    };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(ionic2_calendar_calendar__WEBPACK_IMPORTED_MODULE_2__["CalendarComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", ionic2_calendar_calendar__WEBPACK_IMPORTED_MODULE_2__["CalendarComponent"])
@@ -439,7 +504,9 @@ var ViewCalendarPage = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"], String, _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
             src_app_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
+            _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_8__["LocalNotifications"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"]])
     ], ViewCalendarPage);
     return ViewCalendarPage;
 }());

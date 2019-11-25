@@ -107,6 +107,8 @@ export class RedirectComponent implements CanActivate, OnInit {
             console.log(info.itaccounttype_id)
             if (info.itaccounttype_id == 'StdAcc') {
               for (let user of this.students) {
+                console.log(user.Account)
+                console.log(info.cmuitaccount)
                 if (user.Account != info.cmuitaccount) {
                   this.studentRegister(info.cmuitaccount, info.student_id)
                 }
@@ -118,7 +120,6 @@ export class RedirectComponent implements CanActivate, OnInit {
                 }
               }
             }
-
               console.log('success', info)
           },
           error => console.log('oops', error)
@@ -159,7 +160,7 @@ export class RedirectComponent implements CanActivate, OnInit {
       let password = "123456"
       const res = await this.afAuth.auth.createUserWithEmailAndPassword(emailAddress, password)
 
-      this.afstore.doc(`Students/${res.user.uid}`).set({
+      this.afstore.doc(`Lecturer/${res.user.uid}`).set({
         emailAddress,
       })
 

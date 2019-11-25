@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		058144F96BA644F59BB8D3C5 /* CDVIonicKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BDA479464FB3B796BDED /* CDVIonicKeyboard.m */; };
@@ -24,6 +23,8 @@
 		9E01183C1E024B14BA36E6A6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640C2FDA246A4807A698553A /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BD23FE7F25BB4B71BF3CD4A6 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE393BDB5A044F1B1F16990 /* CDVSplashScreen.m */; };
 		C7D56D9C4A504C6C907CEF9D /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F9119BC734B8B8BC14B80 /* CDVDevice.m */; };
+		3BAC02F236CE4FA58C0F4654 /* OneSignalPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 943652BCCD974669B3E35404 /* OneSignalPush.m */; };
+		AA9939F64A4C4FB88BC1B3E3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468F6E5B570A40AB85F836F2 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,9 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = MyApp/config.xml; sourceTree = "<group>"; };
+		943652BCCD974669B3E35404 /* OneSignalPush.m */ = {isa = PBXFileReference; name = "OneSignalPush.m"; path = "onesignal-cordova-plugin/OneSignalPush.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		DA6978CF013D44E197424533 /* OneSignalPush.h */ = {isa = PBXFileReference; name = "OneSignalPush.h"; path = "onesignal-cordova-plugin/OneSignalPush.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		468F6E5B570A40AB85F836F2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				9E01183C1E024B14BA36E6A6 /* WebKit.framework in Frameworks */,
+				AA9939F64A4C4FB88BC1B3E3 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				640C2FDA246A4807A698553A /* WebKit.framework */,
+				468F6E5B570A40AB85F836F2 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -214,6 +220,8 @@
 				A1FCEFA16ABB46F39A012895 /* IONAssetHandler.h */,
 				01B2BDA479464FB3B796BDED /* CDVIonicKeyboard.m */,
 				00E6B2A8E5314A9E944EC6B2 /* CDVIonicKeyboard.h */,
+				943652BCCD974669B3E35404 /* OneSignalPush.m */,
+				DA6978CF013D44E197424533 /* OneSignalPush.h */,
 			);
 			name = Plugins;
 			path = MyApp/Plugins;
@@ -353,6 +361,7 @@
 				85CE4BE32043494D8E5851F2 /* CDVWKProcessPoolFactory.m in Sources */,
 				07AB28BE111B44C583407A16 /* IONAssetHandler.m in Sources */,
 				058144F96BA644F59BB8D3C5 /* CDVIonicKeyboard.m in Sources */,
+				3BAC02F236CE4FA58C0F4654 /* OneSignalPush.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

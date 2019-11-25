@@ -55,7 +55,8 @@
           </ion-item>
         </ion-radio-group> -->
 
-        <ion-button fill="outline" expand="block" color="success" (click)="addEvent()" [disabled]="event.title == ''">Create
+        <ion-button fill="outline" expand="block" color="success" (click)="addEvent()" [disabled]="event.title == ''">
+          Create
         </ion-button>
         <ion-button fill="outline" expand="block" color="warning" (click)="collapseCard = !collapseCard">Cancel
         </ion-button>
@@ -115,7 +116,7 @@
             </ion-radio>
           </ion-item>
         </ion-radio-group> -->
-        
+
       </ion-list>
 
       <ion-card-content>
@@ -172,5 +173,25 @@
     (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" startHour="1" endHour="25"
     step="30" startingDayWeek="1">
   </calendar>
+
+  <ion-content padding>
+    <ion-button expand="block" (click)="scheduleNotification()">schedule</ion-button>
+    <ion-button expand="block" (click)="recurringNotification()">Every Minute</ion-button>
+    <ion-button expand="block" (click)="repeatingDaily()">Daily</ion-button>
+    <ion-button expand="block" (click)="getAll()">Get All</ion-button>
+
+    <ion-list>
+      <ion-item *ngFor="let n of scheduled">
+        <ion-label text-wrap>
+          {{n.id}} - {{n.title}}
+          <p>Trigger: {{n.trigger | json}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+
+
+
 
 </ion-content>
