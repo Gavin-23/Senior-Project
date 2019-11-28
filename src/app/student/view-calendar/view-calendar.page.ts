@@ -114,8 +114,8 @@ export class ViewCalendarPage implements OnInit {
   ngOnInit() {
     this.user.read_Personal().subscribe(data => {
       this.eventSource = data.map(e => {
-        console.log(e.payload.doc.data()['UID']);
-        console.log(firebase.auth().currentUser.uid);
+        // console.log(e.payload.doc.data()['UID']);
+        // console.log(firebase.auth().currentUser.uid);
         // if (e.payload.doc.data()['UID'] == firebase.auth().currentUser.uid) {
         return {
           isCurrentUser: false,
@@ -138,8 +138,14 @@ export class ViewCalendarPage implements OnInit {
         //     endTime: '',
         //   }
         // }
+              
+
       })
-      console.log("read event successfully!");
+    
+      console.log(this.eventSource);
+
+    
+console.log("read event successfully!");
 
       // console.log(this.events[0].StartTime.getTime());
       // this.event =this.events;
@@ -193,6 +199,8 @@ export class ViewCalendarPage implements OnInit {
       record['Color'] = eventCopy.color;
       record['UID'] = this.userId;
 
+      this.scheduleNotification(eventCopy.name, eventCopy.location, eventCopy.desc, eventCopy.startTime)
+
       this.user.create_PersonalEvent(record).then(resp => {
         this.event.name = "";
         this.event.description = "";
@@ -244,6 +252,7 @@ export class ViewCalendarPage implements OnInit {
       record['StartTime'] = new Date(recordRow.EditStart);
       record['EndTime'] = new Date(recordRow.EditEnd);
       record['Color'] = recordRow.EditColor;
+      this.scheduleNotification(recordRow.EditName, recordRow.EditLocation, recordRow.EditDescription, new Date(recordRow.EditStart),)
       this.user.update_PersonalEvent(recordRow.id, record);
       recordRow.isEdit = false;
       this.showAlert("Successfully!", "Update Successfully!");
@@ -334,10 +343,10 @@ export class ViewCalendarPage implements OnInit {
     this.viewTitle = title;
   }
 
-  async showAlert(title: string, content: string) {
+  async showAlert(title: string, location: string) {
     const alert = await this.alertController.create({
       header: title,
-      message: content,
+      message: 'Location: ' + location,
       buttons: ['OK']
     })
     await alert.present()
@@ -372,40 +381,40 @@ export class ViewCalendarPage implements OnInit {
   //   this.event.endTime = (selected.toISOString());
   // }
 
-  scheduleNotification() {
+  scheduleNotification(title, location, desc, startTime) {
     this.localNotifications.schedule({
       id:1,
-      title: 'Attention',
-      text: 'Zihao Yu',
-      data: { mydata: 'dcdscsdfcsd'},
-      trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND}
+      title: title,
+      text: "Location: " + location,
+      data: { mydata: desc},
+      trigger: { at: new Date(startTime)}
     });
 
   }
 
-  recurringNotification() {
-    this.localNotifications.schedule({
-      id:22,
-      title: 'Attention',
-      text: 'Zihao Yu',
-      trigger: {every: ELocalNotificationTriggerUnit.MINUTE}
-    });
-  }
+  // recurringNotification() {
+  //   this.localNotifications.schedule({
+  //     id:22,
+  //     title: 'Attention',
+  //     text: 'Zihao Yu',
+  //     trigger: {every: ELocalNotificationTriggerUnit.MINUTE}
+  //   });
+  // }
 
-  repeatingDaily() {
-    this.localNotifications.schedule({
-      id:42,
-      title: 'Attention',
-      text: ' Zeng qi',
-      trigger: {every: { hour:0, minute:2}}
-    });
+  // repeatingDaily() {
+  //   this.localNotifications.schedule({
+  //     id:42,
+  //     title: 'Attention',
+  //     text: ' Zeng qi',
+  //     trigger: {every: { hour:0, minute:2}}
+  //   });
 
-  }
+  // }
 
-  getAll() {
-    this.localNotifications.getAll().then(res =>{
-      this.scheduled = res;
-    });
-  }
+  // getAll() {
+  //   this.localNotifications.getAll().then(res =>{
+  //     this.scheduled = res;
+  //   });
+  // }
 
 }

@@ -98,7 +98,8 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "../onesignal-cordova-plugin/starter-build-extras-onesignal.gradle"
+apply from: "../cordova-plugin-badge/starter-badge.gradle"
+apply from: "../cordova-plugin-local-notification/starter-localnotification.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -294,8 +295,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
-    implementation "com.android.support:support-annotations:27.+"
-    implementation "com.onesignal:OneSignal:3.12.2"
+    implementation "com.android.support:support-v4:26.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

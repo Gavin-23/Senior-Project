@@ -115,7 +115,7 @@ var StudentLoginPage = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.afAuth.auth.signInWithEmailAndPassword(emailAddress + "@cmu.ac.th", password)];
+                        return [4 /*yield*/, this.afAuth.auth.signInWithEmailAndPassword(emailAddress, password)];
                     case 2:
                         res = _b.sent();
                         this.router.navigate(['/student-tabs']);

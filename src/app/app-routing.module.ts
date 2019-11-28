@@ -16,7 +16,6 @@ const routes: Routes = [
     component: RedirectComponent,
     data: {
       externalUrl: 'https://oauth.cmu.ac.th/v1/Authorize.aspx?response_type=code&client_id=J07vZjjb55qryMp3V6fSYuxs7KhwctgsD1RZzGXp&redirect_uri=http://localhost:8100&scope=cmuitaccount.basicinfo&state=xyz.aspx'
-      // externalUrl: https://oauth.cmu.ac.th/v1/Authorize.aspx?response_type=code&client_id=${'gQJfMeuvJCUDnZaxEvw8Qu2cKK3cuxx8BqTmBpDf'}&redirect_uri=${'http://scott.dto.technology'}&scope=cmuitaccount.basicinfo&state=xyz
     }
   },
   {

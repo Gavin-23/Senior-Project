@@ -49,10 +49,34 @@
     "is_top_level": true,
     "variables": {}
   },
-  "onesignal-cordova-plugin": {
+  "cordova-plugin-local-notification": {
     "source": {
       "type": "registry",
-      "id": "onesignal-cordova-plugin"
+      "id": "git+https://github.com/katzer/cordova-plugin-local-notifications.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-inappbrowser": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-inappbrowser@latest"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-ionic": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic@latest"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-badge": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/katzer/cordova-plugin-badge.git"
     },
     "is_top_level": true,
     "variables": {}

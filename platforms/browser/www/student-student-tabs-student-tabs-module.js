@@ -61,7 +61,7 @@ var StudentTabsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-tabs #StudentTabs>\n\t<ion-tab-bar slot=\"bottom\">\n\t\t<ion-tab-button tab=\"view-event\">\n\t\t\t<ion-icon name=\"ios-list-box\"></ion-icon>\n\t\t\t<ion-label>View Event</ion-label>\n\t\t</ion-tab-button>\n\n\t\t<ion-tab-button tab=\"view-calendar\">\n\t\t\t<ion-icon name=\"calendar\"></ion-icon>\n\t\t\t<ion-label>View Calendar</ion-label>\n\t\t</ion-tab-button>\n\t</ion-tab-bar>\n</ion-tabs>"
+module.exports = "<ion-tabs #StudentTabs>\n\t<ion-tab-bar slot=\"bottom\">\n\t\t<ion-tab-button tab=\"view-event\">\n\t\t\t<ion-icon name=\"ios-list-box\"></ion-icon>\n\t\t\t<ion-label>View Event</ion-label>\n\t\t</ion-tab-button>\n\n\t\t<ion-list>\n\t\t\t<ion-item *ngFor=\"let n of scheduled\">\n\t\t\t\t<ion-label text-wrap>\n\t\t\t\t\t{{n.id}} - {{n.title}}\n\t\t\t\t\t<p>Trigger: {{n.trigger | json}}</p>\n\t\t\t\t</ion-label>\n\t\t\t</ion-item>\n\t\t</ion-list>\n\n\t\t<ion-tab-button tab=\"view-calendar\">\n\t\t\t<ion-icon name=\"calendar\"></ion-icon>\n\t\t\t<ion-label>View Calendar</ion-label>\n\t\t</ion-tab-button>\n\t</ion-tab-bar>\n</ion-tabs>"
 
 /***/ }),
 

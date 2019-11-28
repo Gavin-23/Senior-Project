@@ -886,6 +886,8 @@ var RedirectComponent = /** @class */ (function () {
                             if (user.Account != info.cmuitaccount) {
                                 _this.studentRegister(info.cmuitaccount, info.student_id);
                             }
+                            else {
+                            }
                         }
                     }
                     else if (info.itaccounttype_id == 'MISEmpAcc') {

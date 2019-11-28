@@ -22,9 +22,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { RedirectComponent } from './redirect/redirect.component';
 import { FCM } from '@ionic-native/fcm/ngx';
-import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -59,7 +57,6 @@ export function LanguageLoader(http: HttpClient) {
     LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     UserService,
-    OneSignal
     ],
   bootstrap: [AppComponent]
 })

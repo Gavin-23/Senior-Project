@@ -4,7 +4,7 @@
 
 <h2 class="subtitle" size="large">CAMT Study Life Assistant</h2>
 <!-- <img *ngIf="imageUrl" [src]="imageUrl"> -->
-  <ion-button  expand="full" class="button-student" color="white" (click)="studentLogin()">
+  <ion-button  [routerLink]="['/student-login']"  expand="full" class="button-student" color="white" >
     {{ 'STUDENT' | translate }}
   </ion-button>
   <ion-button  expand="full" class="button-staff" color="white" (click)="studentLogin()">
