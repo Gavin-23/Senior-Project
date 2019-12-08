@@ -19,6 +19,7 @@ export class ViewCalendarPage implements OnInit {
   events: any;
   eventSource = [];
   viewTitle = '';
+  min: any;
 
   event = {
     name: '',
@@ -28,6 +29,7 @@ export class ViewCalendarPage implements OnInit {
     endTime: '',
     color: '',
     isEdit: false,
+    alert: '',
   };
 
 
@@ -75,8 +77,6 @@ export class ViewCalendarPage implements OnInit {
     },
   ];
 
-
-
   calendar = {
     mode: 'month',
     currentDate: new Date()
@@ -101,12 +101,13 @@ export class ViewCalendarPage implements OnInit {
       this.localNotifications.on('click').subscribe(res => {
         console.log('click: ', res);
         let msg = res.data ? res.data.mydata : '';
-        this.showAlert(res.title,res.text);
+        this.showAlert(res.title, res.text);
       });
       this.localNotifications.on('trigger').subscribe(res => {
+        // console.log("notification is alert")
         console.log('trigger: ', res);
         let msg = res.data ? res.data.mydata : '';
-        this.showAlert(res.title,res.text);
+        this.showAlert(res.title, res.text);
       });
     });
   }
@@ -138,14 +139,14 @@ export class ViewCalendarPage implements OnInit {
         //     endTime: '',
         //   }
         // }
-              
+
 
       })
-    
+
       console.log(this.eventSource);
 
-    
-console.log("read event successfully!");
+
+      console.log("read event successfully!");
 
       // console.log(this.events[0].StartTime.getTime());
       // this.event =this.events;
@@ -165,6 +166,7 @@ console.log("read event successfully!");
       endTime: new Date().toISOString(),
       color: '',
       isEdit: false,
+      alert: ''
     };
   }
 
@@ -186,8 +188,11 @@ console.log("read event successfully!");
         startTime: new Date(this.event.startTime),
         endTime: new Date(this.event.endTime),
         desc: this.event.description,
-        color: this.event.color
+        color: this.event.color,
+        // alert: this.event.alert
       }
+
+      // console.log("123456  "+ this.event.alert);
 
       this.userId = firebase.auth().currentUser.uid
       let record = {};
@@ -198,8 +203,6 @@ console.log("read event successfully!");
       record['EndTime'] = eventCopy.endTime;
       record['Color'] = eventCopy.color;
       record['UID'] = this.userId;
-
-      this.scheduleNotification(eventCopy.name, eventCopy.location, eventCopy.desc, eventCopy.startTime)
 
       this.user.create_PersonalEvent(record).then(resp => {
         this.event.name = "";
@@ -217,10 +220,11 @@ console.log("read event successfully!");
         .catch(error => {
           console.log(error);
         });
-
+      this.scheduleNotification(eventCopy.name, eventCopy.location, eventCopy.desc, eventCopy.startTime);
       this.eventSource.push(eventCopy);
       this.myCal.loadEvents();
-      console.log(this.eventSource[0].endTime);
+
+      // console.log(this.eventSource[0].endTime);
 
       // if (eventCopy.allDay) {
       //   let start = eventCopy.startTime;
@@ -252,7 +256,7 @@ console.log("read event successfully!");
       record['StartTime'] = new Date(recordRow.EditStart);
       record['EndTime'] = new Date(recordRow.EditEnd);
       record['Color'] = recordRow.EditColor;
-      this.scheduleNotification(recordRow.EditName, recordRow.EditLocation, recordRow.EditDescription, new Date(recordRow.EditStart),)
+      this.scheduleNotification(recordRow.EditName, recordRow.EditLocation, recordRow.EditDescription, new Date(recordRow.EditStart))
       this.user.update_PersonalEvent(recordRow.id, record);
       recordRow.isEdit = false;
       this.showAlert("Successfully!", "Update Successfully!");
@@ -346,7 +350,7 @@ console.log("read event successfully!");
   async showAlert(title: string, location: string) {
     const alert = await this.alertController.create({
       header: title,
-      message: 'Location: ' + location,
+      message: location,
       buttons: ['OK']
     })
     await alert.present()
@@ -382,16 +386,52 @@ console.log("read event successfully!");
   // }
 
   scheduleNotification(title, location, desc, startTime) {
+    if (this.event.alert == "30") {
+      let mins = 1;
+      let start = new Date(startTime);
+      start.setMinutes(start.getMinutes() - mins);
+      console.log(start)
+      this.localNotifications.schedule({
+        id: 1,
+        title: title,
+        text: "Location: " + location,
+        data: { mydata: desc },
+        trigger: {
+          at: new Date(start)
+        }
+      });
+      console.log("notification is alert")
+
+    } else if (this.event.alert == "15") {
+      let mins = 15;
+      let start = new Date(startTime);
+      start.setMinutes(start.getMinutes() - mins);
+      console.log(start)
+      this.localNotifications.schedule({
+        id: 2,
+        title: title,
+        text: "Location: " + location,
+        data: { mydata: desc },
+        trigger: {
+          at: new Date(start)
+        }
+      });
+      console.log("notification is alert")
+
+    }
+
     this.localNotifications.schedule({
-      id:1,
+      id: 3,
       title: title,
       text: "Location: " + location,
-      data: { mydata: desc},
-      trigger: { at: new Date(startTime)}
+      data: { mydata: desc },
+      trigger: {
+        at: new Date(startTime)
+      }
     });
+  
 
   }
-
   // recurringNotification() {
   //   this.localNotifications.schedule({
   //     id:22,

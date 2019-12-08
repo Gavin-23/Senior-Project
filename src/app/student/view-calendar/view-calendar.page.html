@@ -43,6 +43,18 @@
           </ion-datetime>
         </ion-item>
 
+
+        <ion-item position="floating">
+          <ion-label>Alert Before</ion-label>
+
+
+          <ion-select placeholder="Alert Before" slot="end" value="notifications" interface="popover"
+            [(ngModel)]="event.alert">
+            <ion-select-option value="30">30 mins</ion-select-option>
+            <ion-select-option value="15">15 mins</ion-select-option>
+          </ion-select>
+
+        </ion-item>
         <!-- <ion-item>
           <ion-label position="floating" color="secondary"><strong>Color of Event</strong></ion-label>
         </ion-item>
@@ -91,7 +103,7 @@
 
         <ion-item>
           <ion-label position="floating" color="secondary"><strong>Time of Event</strong></ion-label>
-        </ion-item> -->
+        </ion-item>
         <ion-item>
           <ion-label>Start</ion-label>
           <ion-datetime placeholder="Month/Day/Hour/minute" displayFormat="MMM/DD/HH:mm" pickerFormat="MMM/DD/HH:mm"
@@ -104,16 +116,6 @@
           <ion-datetime placeholder="Month/Day/Hour/minute" displayFormat="MMM/DD/HH:mm" pickerFormat="MMM/DD/HH:mm"
             [(ngModel)]="event.EditEnd">
           </ion-datetime>
-
-          <ion-item>
-            <ion-label position="floating" color="secondary"><strong>Alert Before</strong></ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-select placeholder="Alert Before" slot="end" value="notifications" interface="popover" [(ngModel)]="alert">
-              <ion-select-option value="30">Before 30 mins</ion-select-option>
-              <ion-select-option value="15">Before 15 mins</ion-select-option>
-            </ion-select>
-          </ion-item>
         </ion-item>
 
         <!-- <ion-item>
